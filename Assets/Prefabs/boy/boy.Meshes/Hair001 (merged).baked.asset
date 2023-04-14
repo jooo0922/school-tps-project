@@ -7,7 +7,7 @@ Mesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Hair001 (merged).baked
-  serializedVersion: 10
+  serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
     firstByte: 0
@@ -2728,6 +2728,7 @@ Mesh:
     m_Center: {x: -0.00055830926, y: 1.6616333, z: -0.033109527}
     m_Extent: {x: 0.11489267, y: 0.12587333, z: 0.12715542}
   m_MeshUsageFlags: 0
+  m_CookingOptions: 30
   m_BakedConvexCollisionMesh: 
   m_BakedTriangleCollisionMesh: 
   m_MeshMetrics[0]: 1
