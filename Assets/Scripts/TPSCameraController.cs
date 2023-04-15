@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class TPSCameraController : MonoBehaviour
 {
+    [SerializeField]
     public Transform cameraArm; // TPS 카메라의 실제 회전을 적용할 카메라 암 오브젝트
+
+    public float rotateSpeed = 3f; // 카메라 암 회전 속도
 
     private PlayerInput playerInput; // 플레이어 입력 상태 관리 모듈
 
@@ -23,7 +26,9 @@ public class TPSCameraController : MonoBehaviour
     // 마우스 이동에 따른 TPS 카메라 회전 처리 메서드
     private void LookAround()
     {
-        Vector2 mouseDelta = new Vector2(playerInput.horizontalCameraRotate, playerInput.verticalCameraRotate); // 마우스를 좌우로 움직인 수치와 위아래로 움직인 수치를 Vector2 타입 구조체로 묶어서 저장.
+        // 마우스를 좌우로 움직인 수치와 위아래로 움직인 수치를 Vector2 타입 구조체로 묶어서 저장.
+        // 여기에 카메라 회전 속도를 추가로 곱해줌
+        Vector2 mouseDelta = new Vector2(playerInput.horizontalCameraRotate, playerInput.verticalCameraRotate) * rotateSpeed; 
         Vector3 cameraAngle = cameraArm.rotation.eulerAngles; // 현재 카메라의 오일러 각을 저장.
 
         float rotateX = cameraAngle.x - mouseDelta.y; // 마우스 위아래 움직인 수치만큼 현재 카메라 암의 x축 회전값 계산 -> 이는 카메라 암의 수직방향 회전과 동일.
