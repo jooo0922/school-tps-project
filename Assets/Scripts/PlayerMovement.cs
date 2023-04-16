@@ -11,6 +11,10 @@ public class PlayerMovement : MonoBehaviour
     private Transform cameraArm; // TPS 카메라의 방향벡터를 참조할 카메라 암 오브젝트
 
     public float moveSpeed = 3f; // 플레이어 이동 속력
+    public float jumpForce = 4f; // 플레이어 점프력
+    private bool isGrounded = false; // 바닥에 닿았는지 상태 여부 -> 기본값 false. why? 애니메이터 탭에서 파라미터 기본값이 체크해제(false)로 되어있고, 실제로 캐릭터와 캠슐 콜라이더가 지면에서 살짝 떠 있는 상태이기 때문!
+    private bool isPreparingToJump = false; // 점프 준비 상태 여부
+    private bool isLanding = false; // 착지 상태 여부
 
     private PlayerInput playerInput; // 플레이어 입력 상태 관리 모듈
     private Rigidbody playerRigidBody; // 플레이어 캐릭터 리지드바디 컴포넌트 -> 플레이어 캐릭터의 물리 처리를 고려한 이동 구현
@@ -28,13 +32,15 @@ public class PlayerMovement : MonoBehaviour
     // -> 따라서, 유니티 물리엔진 갱신 주기에 맞춰 실행되는 유니티 이벤트 메서드 FixedUpdate() 사용 
     private void FixedUpdate()
     {
-        // 플레이어 캐릭터 이동 및 애니메이션 실행
-        Move();
+        Move(); // 플레이어 캐릭터 이동 및 애니메이션 실행
+        Jump(); // 플레이어 캐릭터 점프 및 애니메이션 실행
     }
 
     // 사용자 입력 상태에 따라 플레이어 캐릭터 이동 및 애니메이션 실행 구현
     private void Move()
     {
+        if (isPreparingToJump || isLanding) return; // 점프 준비 중이거나 착지 중이면 플레이어 캐릭터를 이동시키지 않음.
+
         // 좌우이동 입력 상태값을 x값, 앞뒤이동 입력 상태값을 y값에 넣어 Vector2 타입으로 이동 입력 상태값 저장
         Vector2 moveInput = new Vector2(playerInput.leftRightMove, playerInput.frontBackMove);
         playerAnimator.SetFloat("Move X", moveInput.x); // 2D BlendTree 의 x축 전이 파라미터 값을 좌우이동 입력값으로 업데이트
@@ -64,5 +70,48 @@ public class PlayerMovement : MonoBehaviour
 
         // 실제 캐릭터 게임오브젝트가 바라보는 방향을 카메라 암의 수평화된 앞쪽 방향벡터와 일치시킴 -> TPS 카메라가 움직이면 그에 따라 플레이어 캐릭터도 방향전환 (-> 직관적 컨트롤)
         characterBody.forward = cameraForwardDirection;
+    }
+
+    // 사용자 점프 입력에 따라 플레이어 캐릭터 점프 애니메이션 실행 구현
+    private void Jump()
+    {
+        // 점프 입력키가 눌렸고, 플레이어 캐릭터가 바닥에 있을 때 점프 애니메이션 실행
+        if (playerInput.jump && isGrounded)
+        {
+            isGrounded = false;
+            isPreparingToJump = true;
+            playerAnimator.SetBool("IsGrounded", isGrounded); // 점프 애니메이션 실행
+        }
+    }
+
+    // 점프 애니메이션 클립에서 OnJumpUp 이벤트 발생 시 실제 점프 실행 (AnimationEventReceiver 가 실행 위임)
+    public void OnJumpUp()
+    {
+        isPreparingToJump = false;
+        playerRigidBody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse); // y축으로 물리 힘을 가하여 실제 점프 수행 -> ForceMode.Impulse 는 짧은 시간에 큰 힘을 가하는 힘의 모드
+    }
+
+    // 점프 애니메이션 클립에서 OnJumpLand 이벤트 발생 시 착지 상태값 변경
+    public void OnJumpLand()
+    {
+        isLanding = true;
+    }
+
+    // 점프 애니메이션 클립에서 OnJumpEnd 이벤트 발생 시 착지 상태값 변경
+    public void OnJumpEnd()
+    {
+        isLanding = false;
+    }
+
+    // 플레이어 캐릭터 점프 후 다시 아래로 떨어져서 지면과 충돌했을 때의 처리를 충돌 순간 이벤트 메서드에서 구현
+    private void OnCollisionEnter(Collision collision)
+    {
+        // 충돌 지점의 노멀벡터의 y값이 0.7 이상, 즉, 약 45도의 경사를 가진 표면에서 완전 수평 지면 사이일 때,
+        // 지면과 충돌한 것으로 간주하여 점프 종료 및 Jump -> Movement 상태로 전이시킴.
+        if (collision.GetContact(0).normal.y > 0.7f)
+        {
+            isGrounded = true;
+            playerAnimator.SetBool("IsGrounded", isGrounded);
+        }
     }
 }
