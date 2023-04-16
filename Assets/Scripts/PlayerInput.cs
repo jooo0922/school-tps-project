@@ -12,6 +12,7 @@ public class PlayerInput : MonoBehaviour
     public string verticalCameraRotateAxisName = "Mouse Y"; // 수직방향 카메라 회전을 위한 입력축 이름
     public string fireButtonName = "Fire1"; // 밣사를 위한 입력 버튼 이름
     public string reloadButtonName = "Reload"; // 재장전을 위한 입력 버튼 이름
+    public string jumpButtonName = "Jump"; // 점프를 위한 입력 버튼 이름
 
     // 입력 상태를 자동구현 프로퍼티 메서드로 관리 -> 외부에서는 '읽기'만 가능
     public float frontBackMove { get; private set; } // 감지된 앞뒤 움직임 입력값
@@ -19,7 +20,8 @@ public class PlayerInput : MonoBehaviour
     public float horizontalCameraRotate { get; private set; } // 감지된 수평방향 카메라 회전 입력값 
     public float verticalCameraRotate { get; private set; } // 감지된 수직방향 카메라 회전 입력값 
     public bool fire { get; private set; } // 감지된 발사 입력값 
-    public bool reload { get; private set; } // 감지된 재장전 입력값 
+    public bool reload { get; private set; } // 감지된 재장전 입력값
+    public bool jump { get; private set; } // 감지된 점프 입력값
 
 
     // 매 프레임마다 입력 상태 업데이트
@@ -37,5 +39,7 @@ public class PlayerInput : MonoBehaviour
         fire = Input.GetButton(fireButtonName);
         // 재장전 입력 상태 업데이트
         reload = Input.GetButton(reloadButtonName);
+        // 점프 입력 상태 업데이트
+        jump = Input.GetButton(jumpButtonName);
     }
 }
