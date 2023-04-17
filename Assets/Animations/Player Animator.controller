@@ -70,13 +70,13 @@ AnimatorController:
   - serializedVersion: 5
     m_Name: Upper Body
     m_StateMachine: {fileID: 6784406012911758291}
-    m_Mask: {fileID: 0}
+    m_Mask: {fileID: 31900000, guid: f02ac973c4aac4bc0b4b7ee7ee8b331c, type: 2}
     m_Motions: []
     m_Behaviours: []
     m_BlendingMode: 0
     m_SyncedLayerIndex: -1
-    m_DefaultWeight: 0
-    m_IKPass: 0
+    m_DefaultWeight: 1
+    m_IKPass: 1
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
 --- !u!1101 &44998775341884626
