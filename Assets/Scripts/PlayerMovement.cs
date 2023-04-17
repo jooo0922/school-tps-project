@@ -91,14 +91,15 @@ public class PlayerMovement : MonoBehaviour
         playerRigidBody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse); // y축으로 물리 힘을 가하여 실제 점프 수행 -> ForceMode.Impulse 는 짧은 시간에 큰 힘을 가하는 힘의 모드
     }
 
-    // 점프 애니메이션 클립에서 OnJumpLand 이벤트 발생 시 착지 상태값 변경
-    public void OnJumpLand()
+    // 점프 애니메이션 클립에서 OnLandStart 이벤트 발생 시 착지 상태값 변경
+    public void OnLandStart()
     {
         isLanding = true;
+        CheckTransitionError(); // 착지 시점에 상태전이가 발생하지 않은 에러 핸들링 함수
     }
 
     // 점프 애니메이션 클립에서 OnJumpEnd 이벤트 발생 시 착지 상태값 변경
-    public void OnJumpEnd()
+    public void OnLandEnd()
     {
         isLanding = false;
     }
@@ -110,6 +111,18 @@ public class PlayerMovement : MonoBehaviour
         // 지면과 충돌한 것으로 간주하여 점프 종료 및 Jump -> Movement 상태로 전이시킴.
         if (collision.GetContact(0).normal.y > 0.7f)
         {
+            isGrounded = true;
+            playerAnimator.SetBool("IsGrounded", isGrounded);
+        }
+    }
+
+    // 점프 애니메이션 클립 > 착지 애니메이션 시작 시점에도 OnCollisionEnter 이벤트가 발생하지 않아
+    // 상태전이가 발생하지 않은 에러 핸들링 함수
+    private void CheckTransitionError()
+    {
+        if (!isGrounded)
+        {
+            // Debug.Log("착지를 시작했는데도 isGrounded가 false인 상황");
             isGrounded = true;
             playerAnimator.SetBool("IsGrounded", isGrounded);
         }
