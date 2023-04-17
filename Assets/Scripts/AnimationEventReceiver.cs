@@ -13,13 +13,13 @@ public class AnimationEventReceiver : MonoBehaviour
         GetComponentInParent<PlayerMovement>().OnJumpUp();
     }
 
-    private void OnJumpLand()
+    private void OnLandStart()
     {
-        GetComponentInParent<PlayerMovement>().OnJumpLand();
+        GetComponentInParent<PlayerMovement>().OnLandStart();
     }
 
-    private void OnJumpEnd()
+    private void OnLandEnd()
     {
-        GetComponentInParent<PlayerMovement>().OnJumpEnd();
+        GetComponentInParent<PlayerMovement>().OnLandEnd();
     }
 }

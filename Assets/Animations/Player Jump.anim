@@ -108623,14 +108623,14 @@ AnimationClip:
     intParameter: 0
     messageOptions: 0
   - time: 1.4
-    functionName: OnJumpLand
+    functionName: OnLandStart
     data: 
     objectReferenceParameter: {fileID: 264933485868643143, guid: 4c7836e7b2bbb4d8fa1477e841a33daa, type: 3}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 2
-    functionName: OnJumpEnd
+    functionName: OnLandEnd
     data: 
     objectReferenceParameter: {fileID: 264933485868643143, guid: 4c7836e7b2bbb4d8fa1477e841a33daa, type: 3}
     floatParameter: 0
