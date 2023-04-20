@@ -1,0 +1,16 @@
+using UnityEngine;
+
+[CreateAssetMenu(menuName = "Scriptable/GunData", fileName = "Gun Data")]
+public class GunData : ScriptableObject
+{
+    public AudioClip fireClip; // 발사 소리
+    public AudioClip reloadClip; // 재장전 소리
+
+    public float damage = 25; // 공격력
+
+    public int startAmmoRemain = 100; // 초기 탄알 개수
+    public int magCapacity = 25; // 탄창 용량
+
+    public float timeBetweenFire = 0.12f; // 탄알 발사 간격
+    public float reloadTime = 1.8f; // 재장전 소요 시간
+}
