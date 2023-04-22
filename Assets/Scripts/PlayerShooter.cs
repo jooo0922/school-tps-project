@@ -7,8 +7,6 @@ public class PlayerShooter : MonoBehaviour
 {
     public Gun gun; // 사용할 총
     public Transform gunPivot; // 총 위치 기준점
-    public Transform leftHandMount;
-    public Transform rightHandMount;
 
     private PlayerInput playerInput; // 플레이어 입력 모듈
     private Animator playerAnimator; // 애니메이터 컴포넌트
@@ -55,16 +53,16 @@ public class PlayerShooter : MonoBehaviour
         playerAnimator.SetIKRotationWeight(AvatarIKGoal.LeftHand, 1.0f);
 
         // IK 왼손의 위치와 회전 목표값 설정
-        playerAnimator.SetIKPosition(AvatarIKGoal.LeftHand, leftHandMount.position);
-        playerAnimator.SetIKRotation(AvatarIKGoal.LeftHand, leftHandMount.rotation);
+        playerAnimator.SetIKPosition(AvatarIKGoal.LeftHand, gun.leftHandMount.position);
+        playerAnimator.SetIKRotation(AvatarIKGoal.LeftHand, gun.leftHandMount.rotation);
 
         // IK 오른손의 위치와 회전 변경 시의 가중치 설정 -> 1.0 은 목표값으로 100% 변경시킴
         playerAnimator.SetIKPositionWeight(AvatarIKGoal.RightHand, 1.0f);
         playerAnimator.SetIKRotationWeight(AvatarIKGoal.RightHand, 1.0f);
 
         // IK 오른손의 위치와 회전 목표값 설정
-        playerAnimator.SetIKPosition(AvatarIKGoal.RightHand, rightHandMount.position);
-        playerAnimator.SetIKRotation(AvatarIKGoal.RightHand, rightHandMount.rotation);
+        playerAnimator.SetIKPosition(AvatarIKGoal.RightHand, gun.rightHandMount.position);
+        playerAnimator.SetIKRotation(AvatarIKGoal.RightHand, gun.rightHandMount.rotation);
 
     }
 }
