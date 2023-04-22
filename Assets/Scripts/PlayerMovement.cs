@@ -5,8 +5,6 @@ using UnityEngine;
 // 사용자 입력에 따라 플레이어 캐릭터를 움직이고 애니메이션 클립을 재생하는 모듈
 public class PlayerMovement : MonoBehaviour
 {
-    //[SerializeField]
-    //private Transform characterBody; // 플레이어 캐릭터의 자식 오브젝트로 저장된 실제 캐릭터 모델 게임 오브젝트
     [SerializeField]
     private Transform cameraArm; // TPS 카메라의 방향벡터를 참조할 카메라 암 오브젝트
 
@@ -15,8 +13,10 @@ public class PlayerMovement : MonoBehaviour
     private bool isGrounded = false; // 바닥에 닿았는지 상태 여부 -> 기본값 false. why? 애니메이터 탭에서 파라미터 기본값이 체크해제(false)로 되어있고, 실제로 캐릭터와 캠슐 콜라이더가 지면에서 살짝 떠 있는 상태이기 때문!
     private bool isPreparingToJump = false; // 점프 준비 상태 여부
     private bool isLanding = false; // 착지 상태 여부
+    private bool isMounted = false; // 무기 착용 상태 여부
 
     private PlayerInput playerInput; // 플레이어 입력 상태 관리 모듈
+    private PlayerShooter playerShooter; // 플레이어 슈터 관리 모듈
     private Rigidbody playerRigidBody; // 플레이어 캐릭터 리지드바디 컴포넌트 -> 플레이어 캐릭터의 물리 처리를 고려한 이동 구현
     private Animator playerAnimator; // 플레이어 캐릭터 > VRoid 게임 오브젝트의 애니메이터 컴포넌트
 
@@ -24,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         playerInput = GetComponent<PlayerInput>();
+        playerShooter = GetComponent<PlayerShooter>();
         playerRigidBody = GetComponent<Rigidbody>();
         playerAnimator = GetComponent<Animator>(); // 애니메이터 컴포넌트는 플레이어 캐릭터의 자식 게임오브젝트에 추가되어 있으니 거기서 가져온 것!
     }
@@ -34,6 +35,11 @@ public class PlayerMovement : MonoBehaviour
     {
         Move(); // 플레이어 캐릭터 이동 및 애니메이션 실행
         Jump(); // 플레이어 캐릭터 점프 및 애니메이션 실행
+    }
+
+    private void Update()
+    {
+        SetMount(); // 플레이어 캐릭터 무기 착용 상태 설정
     }
 
     // 사용자 입력 상태에 따라 플레이어 캐릭터 이동 및 애니메이션 실행 구현
@@ -84,7 +90,20 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    // 점프 애니메이션 클립에서 OnJumpUp 이벤트 발생 시 실제 점프 실행 (AnimationEventReceiver 가 실행 위임)
+    // 사용자 무기 버튼 입력에 따라 플레이어 캐릭터 무기 착용 상태 변경
+    // 무기 착용은 rigidBody 등 물리 애니메이션과 무관하므로, Update() 이벤트 메서드에서 호출
+    // FixedUpdate() 내부에서 호출되면 키 입력이 물리 엔진 갱신 주기에만 감지되서 키 입력이 잘 안먹음.
+    private void SetMount()
+    {
+        if (playerInput.mountRifle)
+        {
+            isMounted = !isMounted;
+            playerAnimator.SetBool("IsMounted", isMounted);
+            playerShooter.enabled = isMounted;
+        }
+    }
+
+    // 점프 애니메이션 클립에서 OnJumpUp 이벤트 발생 시 실제 점프 실행
     public void OnJumpUp()
     {
         isPreparingToJump = false;
