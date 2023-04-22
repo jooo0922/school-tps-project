@@ -108618,21 +108618,21 @@ AnimationClip:
   - time: 0.5652174
     functionName: OnJumpUp
     data: 
-    objectReferenceParameter: {fileID: 264933485868643143, guid: 4c7836e7b2bbb4d8fa1477e841a33daa, type: 3}
+    objectReferenceParameter: {fileID: 7758322719924744684, guid: 03987cea1cf0c4d7387c445224c7e705, type: 3}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 1.4
     functionName: OnLandStart
     data: 
-    objectReferenceParameter: {fileID: 264933485868643143, guid: 4c7836e7b2bbb4d8fa1477e841a33daa, type: 3}
+    objectReferenceParameter: {fileID: 7758322719924744684, guid: 03987cea1cf0c4d7387c445224c7e705, type: 3}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 2
     functionName: OnLandEnd
     data: 
-    objectReferenceParameter: {fileID: 264933485868643143, guid: 4c7836e7b2bbb4d8fa1477e841a33daa, type: 3}
+    objectReferenceParameter: {fileID: 7758322719924744684, guid: 03987cea1cf0c4d7387c445224c7e705, type: 3}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
