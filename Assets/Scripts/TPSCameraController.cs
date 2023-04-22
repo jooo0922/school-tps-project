@@ -49,5 +49,6 @@ public class TPSCameraController : MonoBehaviour
 
         // 마우스 좌우로 움직인 수치만큼 현재 카메라 암의 y축 회전값 계산 -> 이는 카메라 암의 수평방향 회전과 동일.
         cameraArm.rotation = Quaternion.Euler(rotateX, cameraAngle.y + mouseDelta.x, cameraAngle.z);
+        cameraArm.position = transform.position + new Vector3(0f, 1.45f, 0f); // 카메라암의 위치는 플레이어 캐릭터 위치에서 1.45 만큼 위로 띄운 지점에 위치
     }
 }
