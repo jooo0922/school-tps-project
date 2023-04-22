@@ -5,8 +5,8 @@ using UnityEngine;
 // 사용자 입력에 따라 플레이어 캐릭터를 움직이고 애니메이션 클립을 재생하는 모듈
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField]
-    private Transform characterBody; // 플레이어 캐릭터의 자식 오브젝트로 저장된 실제 캐릭터 모델 게임 오브젝트
+    //[SerializeField]
+    //private Transform characterBody; // 플레이어 캐릭터의 자식 오브젝트로 저장된 실제 캐릭터 모델 게임 오브젝트
     [SerializeField]
     private Transform cameraArm; // TPS 카메라의 방향벡터를 참조할 카메라 암 오브젝트
 
@@ -25,7 +25,7 @@ public class PlayerMovement : MonoBehaviour
     {
         playerInput = GetComponent<PlayerInput>();
         playerRigidBody = GetComponent<Rigidbody>();
-        playerAnimator = GetComponentInChildren<Animator>(); // 애니메이터 컴포넌트는 플레이어 캐릭터의 자식 게임오브젝트에 추가되어 있으니 거기서 가져온 것!
+        playerAnimator = GetComponent<Animator>(); // 애니메이터 컴포넌트는 플레이어 캐릭터의 자식 게임오브젝트에 추가되어 있으니 거기서 가져온 것!
     }
 
     // 리지드바디 컴포넌트로 플레이어 캐릭터 이동 구현
@@ -68,8 +68,8 @@ public class PlayerMovement : MonoBehaviour
             playerRigidBody.MovePosition(playerRigidBody.position + moveDistance);
         }
 
-        // 실제 캐릭터 게임오브젝트가 바라보는 방향을 카메라 암의 수평화된 앞쪽 방향벡터와 일치시킴 -> TPS 카메라가 움직이면 그에 따라 플레이어 캐릭터도 방향전환 (-> 직관적 컨트롤)
-        characterBody.forward = cameraForwardDirection;
+        // 플레이어 캐릭터가 바라보는 방향을 카메라 암의 수평화된 앞쪽 방향벡터와 일치시킴 -> TPS 카메라가 움직이면 그에 따라 플레이어 캐릭터도 방향전환 (-> 직관적 컨트롤)
+        transform.forward = cameraForwardDirection;
     }
 
     // 사용자 점프 입력에 따라 플레이어 캐릭터 점프 애니메이션 실행 구현
