@@ -33,7 +33,11 @@ public class PlayerShooter : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if (playerInput.reload)
+        if (playerInput.fire)
+        {
+            gun.Fire(); // 발사 입력 감지 시, 총 발사 트리거 메서드 실행
+        }
+        else if (playerInput.reload)
         {
             // 기본 Movement 상태에서는 Reload 트리거 파라미터를 실행해도 Reload 애니메이션이 적용되지 않음.
             // 왜냐하면, IsMounted 파라미터 및 상태값이 true가 되는 시점에 PlayerShooter 컴포넌트 자체가 활성화되도록 설정해놨기 때문! (PlayerMovement 참고)
