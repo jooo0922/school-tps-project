@@ -48,14 +48,23 @@ public class Gun : MonoBehaviour
     }
 
     // 컴포넌트 가져오기
-    public void Awake()
+    private void Awake()
     {
-        
+        gunAudioPlayer = GetComponent<AudioSource>();
+    }
+
+    // 컴포넌트 활성화 시, 총 상태 초기화
+    private void OnEnable()
+    {
+        ammoRemain = gunData.startAmmoRemain; // 전체 탄알 수 초기화
+        magAmmo = gunData.magCapacity; // 현재 탄창 탄알 수 초기화
+        state = State.Ready; // 현재 총 상태 초기화
+        lastFireTime = 0; // 총을 마지막으로 발사한 시점 초기화
     }
 
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         
     }
