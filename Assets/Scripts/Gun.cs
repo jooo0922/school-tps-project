@@ -54,6 +54,9 @@ public class Gun : MonoBehaviour
     }
 
     // 컴포넌트 활성화 시, 총 상태 초기화
+    // 참고로, Gun 게임 오브젝트와 Gun 스크립트 컴포넌트 둘 다 비활성화 되어있다면,
+    // Gun 게임 오브젝트만 런타임에서 SetActive(true) 로 한다고 해서 Gun 스크립트까지 활성화되지는 않음.
+    // 그렇게 하려면 Gun 스크립트 자체는 인스펙터 창에서 체크가 되어있어야 함.
     private void OnEnable()
     {
         ammoRemain = gunData.startAmmoRemain; // 전체 탄알 수 초기화
@@ -120,12 +123,35 @@ public class Gun : MonoBehaviour
     // 재장전 트리거
     public bool Reload()
     {
+        if (state == State.Reloading || ammoRemain <= 0 || magAmmo >= gunData.magCapacity)
+        {
+            // 현재 재장전 중이거나, 탄알이 없거나,
+            // 현재 탄창이 최대일 때에는 재장전 입력을 무시함
+            return false;
+        }
+
+        StartCoroutine(ReloadRoutine()); // 위의 3가지 케이스가 아니면 실제 재장전 처리 코루틴 메서드 실행
         return true;
     }
 
     // 실제 재장전 처리 코루틴 메서드
     private IEnumerator ReloadRoutine()
     {
-        yield return new WaitForSeconds(gunData.reloadTime);
+        state = State.Reloading; // 현재 총 상태를 재장전 상태로 전환
+        gunAudioPlayer.PlayOneShot(gunData.reloadClip); // 이전 오디오를 중첩시켜서 자연스럽게 재생시킴
+
+        yield return new WaitForSeconds(gunData.reloadTime); // 재장전 소요 시간만큼 아래 로직처리를 지연
+
+        int ammoToFill = gunData.magCapacity - magAmmo; // 채워야 할 탄알 수 계산
+
+        if (ammoRemain < ammoToFill)
+        {
+            ammoToFill = ammoRemain; // 채워야 할 탄알이 남아있는 탄알보다 많다면, 채워야 할 탄알 수를 남아있는 탄알 수로 갱신
+        }
+
+        magAmmo += ammoToFill; // 탄창을 채움
+        ammoRemain -= ammoToFill; // 채운 탄알 수만큼 남아있는 탄알 수를 감소시킴
+
+        state = State.Ready; // 재장전 처리가 끝났으면, 현재 총의 상태를 발사 준비 상태로 전환
     }
 }

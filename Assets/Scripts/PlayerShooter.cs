@@ -39,9 +39,13 @@ public class PlayerShooter : MonoBehaviour
         }
         else if (playerInput.reload)
         {
-            // 기본 Movement 상태에서는 Reload 트리거 파라미터를 실행해도 Reload 애니메이션이 적용되지 않음.
-            // 왜냐하면, IsMounted 파라미터 및 상태값이 true가 되는 시점에 PlayerShooter 컴포넌트 자체가 활성화되도록 설정해놨기 때문! (PlayerMovement 참고)
-            playerAnimator.SetTrigger("Reload");
+            // 재장전 트리거 실행 성공 시에만 재장전 애니메이션 수행
+            if (gun.Reload())
+            {
+                // 기본 Movement 상태에서는 Reload 트리거 파라미터를 실행해도 Reload 애니메이션이 적용되지 않음.
+                // 왜냐하면, IsMounted 파라미터 및 상태값이 true가 되는 시점에 PlayerShooter 컴포넌트 자체가 활성화되도록 설정해놨기 때문! (PlayerMovement 참고)
+                playerAnimator.SetTrigger("Reload");
+            }
         }
 
         UpdateUI();           
