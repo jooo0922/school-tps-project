@@ -7,6 +7,8 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]
     private Transform cameraArm; // TPS 카메라의 방향벡터를 참조할 카메라 암 오브젝트
+    [SerializeField]
+    private AudioClip weaponSwapClip; // 무기 교체 오디오 클립
 
     public float moveSpeed = 3f; // 플레이어 이동 속력
     public float jumpForce = 4f; // 플레이어 점프력
@@ -19,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
     private PlayerShooter playerShooter; // 플레이어 슈터 관리 모듈
     private Rigidbody playerRigidBody; // 플레이어 캐릭터 리지드바디 컴포넌트 -> 플레이어 캐릭터의 물리 처리를 고려한 이동 구현
     private Animator playerAnimator; // 플레이어 캐릭터 > VRoid 게임 오브젝트의 애니메이터 컴포넌트
+    private AudioSource playerAudioSource; // 플레이어 캐릭터 오디오 소스 컴포넌트
 
     // 플레이어 캐릭터 게임 오브젝트 활성화 시점에 필요한 컴포넌트들을 모두 가져옴.
     void Start()
@@ -27,6 +30,7 @@ public class PlayerMovement : MonoBehaviour
         playerShooter = GetComponent<PlayerShooter>();
         playerRigidBody = GetComponent<Rigidbody>();
         playerAnimator = GetComponent<Animator>(); // 애니메이터 컴포넌트는 플레이어 캐릭터의 자식 게임오브젝트에 추가되어 있으니 거기서 가져온 것!
+        playerAudioSource = GetComponent<AudioSource>();
     }
 
     // 리지드바디 컴포넌트로 플레이어 캐릭터 이동 구현
@@ -100,6 +104,7 @@ public class PlayerMovement : MonoBehaviour
             isMounted = !isMounted;
             playerAnimator.SetBool("IsMounted", isMounted);
             playerShooter.enabled = isMounted;
+            playerAudioSource.PlayOneShot(weaponSwapClip);
         }
     }
 
