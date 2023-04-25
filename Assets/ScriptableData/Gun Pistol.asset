@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a52fde3a6be5f48b8960d1c6c8018999, type: 3}
   m_Name: Gun Pistol
   m_EditorClassIdentifier: 
-  fireClip: {fileID: 0}
-  reloadClip: {fileID: 0}
+  fireClip: {fileID: 8300000, guid: e01028cb082654c5db98ccd435bf5a08, type: 3}
+  reloadClip: {fileID: 8300000, guid: e7810ca4c05d943d7b34cc5f13154605, type: 3}
   damage: 15
   startAmmoRemain: 50
   magCapacity: 15
