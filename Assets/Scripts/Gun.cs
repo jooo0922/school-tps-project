@@ -17,6 +17,9 @@ public class Gun : MonoBehaviour
 
     public GunData gunData; // 총의 현재 데이터
 
+    public ParticleSystem muzzleFlashEffect; // 총구 화염 이펙트 파티클 시스템 컴포넌트
+    public ParticleSystem shellEjectEffect; // 탄피 배출 이펙트 파티클 시스템 컴포넌트
+
     public int ammoRemain; // 남아있는 모든 탄알 수
     public int magAmmo; // 현재 탄창 안에 남아있는 탄알 수
 
@@ -116,6 +119,11 @@ public class Gun : MonoBehaviour
     // 발사 이펙트 처리하는 코루틴 메서드
     private IEnumerator ShotEffect(Vector3 hitPoisition)
     {
+        // 탄알 발사 이펙트 처리를 위한 파티클 시스템 재생
+        muzzleFlashEffect.Play();
+        shellEjectEffect.Play();
+
+
         gunAudioPlayer.PlayOneShot(gunData.fireClip); // 총 발사 오디오 재생 (총 연속 발사 시, 기존 효과음과 자연스럽게 중첩 처리 -> .PlayOnmeShot())
         yield return new WaitForSeconds(0.03f);
     }
