@@ -7,6 +7,7 @@ public class PlayerShooter : MonoBehaviour
 {
     public Gun gun; // 사용할 총
     public Transform gunPivot; // 총 위치 기준점
+    public Transform cameraArm; // TPS 카메라의 방향벡터를 참조할 카메라 암 오브젝트
 
     private PlayerInput playerInput; // 플레이어 입력 모듈
     private Animator playerAnimator; // 애니메이터 컴포넌트
@@ -48,7 +49,8 @@ public class PlayerShooter : MonoBehaviour
             }
         }
 
-        UpdateUI();           
+        UpdateUI();
+        SetGunDirection();
     }
 
     // 총 상태 관련 UI 갱신
@@ -56,6 +58,23 @@ public class PlayerShooter : MonoBehaviour
     {
 
     }
+
+    // 카메라 암 회전에 따른 총구 방향 회전
+    private void SetGunDirection()
+    {
+        float dot = Vector3.Dot(transform.forward, cameraArm.forward); // 플레이어 캐릭터의 앞쪽 방향벡터와 카메라 암의 앞쪽 방향벡터 내적
+        if (dot > 0.9)
+        {
+            // 두 벡터의 내적 결과값이 1이면 일치, 0이면 수직
+            // -> 따라서, 대략 0.9 정도면 두 벡터의 사잇각이 9도 정도 벌어진 상태
+            // 두 벡터의 내적이 0.9보다 클 때에만, 즉, 위/아래로 각 사잇각이 9도 보다 작을 때에만 Gun 의 앞쪽 방향벡터를 카메라 암 방향벡터와 동기화하여 회전시킴 
+            gun.transform.forward = cameraArm.forward;
+        };
+        // Debug.Log(dot);
+        // Debug.DrawRay(gun.transform.position, cameraArm.forward, new Color(1, 0, 0)); // 카메라 암 앞쪽 방향벡터 시각화
+        // Debug.DrawRay(gun.transform.position, transform.forward, new Color(0, 0, 1)); // 플레이어 캐릭터 앞쪽 방향벡터 시각화
+    }
+
 
     // 애니메이터 IK 갱신 이벤트 메서드
     private void OnAnimatorIK(int layerIndex)
@@ -79,5 +98,8 @@ public class PlayerShooter : MonoBehaviour
         playerAnimator.SetIKPosition(AvatarIKGoal.RightHand, gun.rightHandMount.position);
         playerAnimator.SetIKRotation(AvatarIKGoal.RightHand, gun.rightHandMount.rotation);
 
+        // 캐릭터 머리의 lookAt 을 총구 방향을 바라보도록 설정
+        playerAnimator.SetLookAtWeight(1.0f);
+        playerAnimator.SetLookAtPosition(gun.firePosition.position);
     }
 }
