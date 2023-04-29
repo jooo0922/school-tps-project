@@ -24,6 +24,7 @@ public class Gun : MonoBehaviour
     public int magAmmo; // 현재 탄창 안에 남아있는 탄알 수
 
     private AudioSource gunAudioPlayer; // 총 효과음 재생
+    private Animator gunAnimator; // 총기 반동 애니메이션 재생
 
     private float fireDistance = 50f; // 총의 사정거리 > 너무 멀리있는 오브젝트의 레이캐스팅 처리 제한 목적
     private float lastFireTime; // 총을 마지막으로 발사한 시점
@@ -54,6 +55,7 @@ public class Gun : MonoBehaviour
     private void Awake()
     {
         gunAudioPlayer = GetComponent<AudioSource>();
+        gunAnimator = GetComponent<Animator>();
     }
 
     // 컴포넌트 활성화 시, 총 상태 초기화
@@ -123,6 +125,7 @@ public class Gun : MonoBehaviour
         muzzleFlashEffect.Play();
         shellEjectEffect.Play();
 
+        gunAnimator.SetTrigger("Fire");
 
         gunAudioPlayer.PlayOneShot(gunData.fireClip); // 총 발사 오디오 재생 (총 연속 발사 시, 기존 효과음과 자연스럽게 중첩 처리 -> .PlayOnmeShot())
         yield return new WaitForSeconds(0.03f);
