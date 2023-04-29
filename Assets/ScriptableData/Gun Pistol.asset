@@ -17,5 +17,5 @@ MonoBehaviour:
   damage: 15
   startAmmoRemain: 50
   magCapacity: 15
-  timeBetweenFire: 0.25
+  timeBetweenFire: 0.35
   reloadTime: 1.5
