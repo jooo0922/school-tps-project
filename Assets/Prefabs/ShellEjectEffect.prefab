@@ -32,7 +32,7 @@ Transform:
   m_Children:
   - {fileID: 4000011485593706}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!198 &198000010131513902
 ParticleSystem:
@@ -4740,7 +4740,6 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: adea625a5ece049a188663b96b7c4b8b, type: 2}
   - {fileID: 2100000, guid: adea625a5ece049a188663b96b7c4b8b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -9621,7 +9620,6 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 6b412bd1d03c24472909e39f1785518c, type: 2}
   - {fileID: 2100000, guid: 6b412bd1d03c24472909e39f1785518c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0

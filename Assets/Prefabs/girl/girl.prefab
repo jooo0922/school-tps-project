@@ -146,7 +146,7 @@ Transform:
   - {fileID: 667424041782607562}
   - {fileID: 3869881077484570899}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3695727550243554757
 MonoBehaviour:
@@ -177,13 +177,13 @@ MonoBehaviour:
   Description: {fileID: 11400000, guid: 40fe59c79f9ac4abba2b2b235fa21f80, type: 2}
 --- !u!95 &7358060574296485488
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 264933485868643143}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 9000000, guid: 738956c146c6a48f2aafbd41b14e8db8, type: 2}
   m_Controller: {fileID: 0}
   m_CullingMode: 0
@@ -194,7 +194,8 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &621578923920372016
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1599,9 +1600,9 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 2716060905063811195}
   m_AABB:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 0, y: 0, z: 0}
-  m_DirtyAABB: 1
+    m_Center: {x: 0.00012800843, y: 1.3715185, z: -0.079327814}
+    m_Extent: {x: 0.11233533, y: 0.23449194, z: 0.16956612}
+  m_DirtyAABB: 0
 --- !u!1 &2366660227436882097
 GameObject:
   m_ObjectHideFlags: 0
@@ -5163,9 +5164,9 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 2716060905063811195}
   m_AABB:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 0, y: 0, z: 0}
-  m_DirtyAABB: 1
+    m_Center: {x: 0.000000029802322, y: 1.4687724, z: 0.016835945}
+    m_Extent: {x: 0.10882424, y: 0.11667156, z: 0.072426796}
+  m_DirtyAABB: 0
 --- !u!1 &7548314357967369296
 GameObject:
   m_ObjectHideFlags: 0
@@ -6132,9 +6133,9 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 2716060905063811195}
   m_AABB:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 0, y: 0, z: 0}
-  m_DirtyAABB: 1
+    m_Center: {x: 0, y: 0.7990832, z: -0.00457868}
+    m_Extent: {x: 0.6944771, y: 0.7990833, z: 0.15058284}
+  m_DirtyAABB: 0
 --- !u!1 &8521242626089988643
 GameObject:
   m_ObjectHideFlags: 0
