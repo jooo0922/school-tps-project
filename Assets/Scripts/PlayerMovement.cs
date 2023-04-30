@@ -99,7 +99,7 @@ public class PlayerMovement : MonoBehaviour
     // FixedUpdate() 내부에서 호출되면 키 입력이 물리 엔진 갱신 주기에만 감지되서 키 입력이 잘 안먹음.
     private void SetMount()
     {
-        if (playerInput.mountRifle)
+        if (playerInput.mount)
         {
             isMounted = !isMounted;
             playerAnimator.SetBool("IsMounted", isMounted);

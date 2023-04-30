@@ -13,7 +13,7 @@ public class PlayerInput : MonoBehaviour
     public string fireButtonName = "Fire1"; // 밣사를 위한 입력 버튼 이름
     public string reloadButtonName = "Reload"; // 재장전을 위한 입력 버튼 이름
     public string jumpButtonName = "Jump"; // 점프를 위한 입력 버튼 이름
-    public string mountRifleButtonName = "Mount Rifle"; // 소총 장착을 위한 입력 버튼 이름
+    public string mountButtonName = "Mount"; // 무기 장착을 위한 입력 버튼 이름
 
     // 입력 상태를 자동구현 프로퍼티 메서드로 관리 -> 외부에서는 '읽기'만 가능
     public float frontBackMove { get; private set; } // 감지된 앞뒤 움직임 입력값
@@ -23,7 +23,7 @@ public class PlayerInput : MonoBehaviour
     public bool fire { get; private set; } // 감지된 발사 입력값 
     public bool reload { get; private set; } // 감지된 재장전 입력값
     public bool jump { get; private set; } // 감지된 점프 입력값
-    public bool mountRifle { get; private set; } // 감지된 소총 장착 입력값
+    public bool mount { get; private set; } // 감지된 무기 장착 입력값
 
 
     // 매 프레임마다 입력 상태 업데이트
@@ -43,7 +43,7 @@ public class PlayerInput : MonoBehaviour
         reload = Input.GetButtonDown(reloadButtonName);
         // 점프 입력 상태 업데이트
         jump = Input.GetButton(jumpButtonName);
-        // 소총 장착 입력 상태 업데이트
-        mountRifle = Input.GetButtonDown(mountRifleButtonName);
+        // 무기 장착 입력 상태 업데이트
+        mount = Input.GetButtonDown(mountButtonName);
     }
 }
