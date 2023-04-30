@@ -47,9 +47,9 @@ public class PlayerGunManager : MonoBehaviour
     // 프리팹 목록을 인스턴스화하여 오브젝트 풀 초기화
     private void InitGunPool()
     {
-        foreach (GameObject prefab in gunPrefabs)
+        for (int i = 0; i < gunPrefabs.Count; i++)
         {
-            Gun gun = Instantiate(prefab, Vector3.zero, Quaternion.identity).GetComponent<Gun>();
+            Gun gun = Instantiate(gunPrefabs[i], Vector3.zero, Quaternion.identity).GetComponent<Gun>();
             if (gun)
             {
                 gunPool.Add(gun);
@@ -57,6 +57,7 @@ public class PlayerGunManager : MonoBehaviour
                 gun.transform.SetParent(gunPivot, false);
             }
         }
+
     }
 
     // 현재 총 설정하기
@@ -64,6 +65,10 @@ public class PlayerGunManager : MonoBehaviour
     {
         if (IsValidGunIndex(gunIndex))
         {
+            if (currentGun != null)
+            {
+                currentGun.gameObject.SetActive(false); // 현재 무기 비활성화
+            }
             Gun gun = gunPool[gunIndex];
             playerShooter.gun = gun;
             currentGun = gun;
@@ -90,7 +95,6 @@ public class PlayerGunManager : MonoBehaviour
     {
         if (IsGunChangePossible())
         {
-            currentGun.gameObject.SetActive(false); // 현재 무기 비활성화
             SetCurrentGun(playerInput.gunIndex);
             currentGun.gameObject.SetActive(true); // 변경된 무기 활성화
             playerAudioSource.PlayOneShot(gunSwapClip); // 무기 교체 오디오 재생
@@ -107,7 +111,7 @@ public class PlayerGunManager : MonoBehaviour
     // gunIndex 유효성 검사
     private bool IsValidGunIndex(int gunIndex)
     {
-        bool result = gunIndex >= 0 && gunPool[gunIndex];
+        bool result = gunIndex >= 0 && gunIndex < gunPool.Count;
         return result;
     }
 }
