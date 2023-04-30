@@ -54,15 +54,19 @@ public class Gun : MonoBehaviour
     // 컴포넌트 가져오기
     private void Awake()
     {
+        InitComponents();
+        InitGunState();
+    }
+
+    // 필요한 컴포넌트들 가져오기
+    private void InitComponents()
+    {
         gunAudioPlayer = GetComponent<AudioSource>();
         gunAnimator = GetComponent<Animator>();
     }
 
-    // 컴포넌트 활성화 시, 총 상태 초기화
-    // 참고로, Gun 게임 오브젝트와 Gun 스크립트 컴포넌트 둘 다 비활성화 되어있다면,
-    // Gun 게임 오브젝트만 런타임에서 SetActive(true) 로 한다고 해서 Gun 스크립트까지 활성화되지는 않음.
-    // 그렇게 하려면 Gun 스크립트 자체는 인스펙터 창에서 체크가 되어있어야 함.
-    private void OnEnable()
+    // 총 상태 초기화
+    private void InitGunState()
     {
         ammoRemain = gunData.startAmmoRemain; // 전체 탄알 수 초기화
         magAmmo = gunData.magCapacity; // 현재 탄창 탄알 수 초기화
