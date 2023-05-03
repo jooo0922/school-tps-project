@@ -17,7 +17,8 @@ public class MimicAI : LivingEntity
     [Header("Mimic Stats")]
     public float damage = 20f; // 공격력
     public float timeBetAttack = 0.5f; // 공격 간격
-    public float speed = 4; // 이동속도
+    public float speed = 3; // 이동속도
+    public float height = 0.5f; // Mimic 높이
 
     [Header("Nav Agent")]
     public NavMeshAgent navMeshAgent; // 경로 계산 AI 에이전트 컴포넌트 (NavAgent 자식 게임 오브젝트에서 가져옴 -> NavMeshAgent 를 Mimic 게임 오브젝트에 추가하면 transform 계산 시 충돌 발생)
@@ -44,6 +45,8 @@ public class MimicAI : LivingEntity
     private void Awake()
     {
         mimicAudioPlayer = GetComponent<AudioSource>();
+        navMeshAgent.speed = speed;
+        navMeshAgent.baseOffset = height;
     }
 
     // AI 추적 루틴 트리거

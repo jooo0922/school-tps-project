@@ -11,13 +11,13 @@ namespace MimicSpace
     public class Movement : MonoBehaviour
     {
         [Header("Stats")]
-        public float speed = 2f;
         public float velocityLerpCoef = 4f;
 
         [Header("Nav Agent")]
         public Transform mimicAgentTransform;
 
         private Vector3 velocity = Vector3.zero;
+        private float speed = 2f;
         private Mimic myMimic;
 
         private void Start()
