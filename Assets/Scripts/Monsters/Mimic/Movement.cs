@@ -10,39 +10,31 @@ namespace MimicSpace
     /// </summary>
     public class Movement : MonoBehaviour
     {
-        [Header("Controls")]
-        [Tooltip("Body Height from ground")]
-        [Range(0.5f, 5f)]
-        public float height = 0.8f;
-        public float speed = 5f;
-        Vector3 velocity = Vector3.zero;
+        [Header("Stats")]
+        public float speed = 2f;
         public float velocityLerpCoef = 4f;
-        Mimic myMimic;
+
+        [Header("Nav Agent")]
+        public Transform mimicAgentTransform;
+
+        private Vector3 velocity = Vector3.zero;
+        private Mimic myMimic;
 
         private void Start()
         {
             myMimic = GetComponent<Mimic>();
         }
 
-        void Update()
+        private void Update()
         {
-            //velocity = Vector3.Lerp(velocity, new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized * speed, velocityLerpCoef * Time.deltaTime);
-
             // Assigning velocity to the mimic to assure great leg placement
+            velocity = new Vector3(mimicAgentTransform.position.x, 0f, mimicAgentTransform.position.z) - new Vector3(transform.position.x, 0f, transform.position.z);
+            velocity *= speed;
             myMimic.velocity = velocity;
 
             transform.position = transform.position + velocity * Time.deltaTime;
-            Vector3 destHeight = transform.position;
-            RaycastHit[] hits = Physics.RaycastAll(transform.position + Vector3.up * 5f, -Vector3.up);
-            for (int i = 0; i < hits.Length; i++)
-            {
-                if (!hits[i].collider.CompareTag("Mimic"))
-                {
-                    destHeight = new Vector3(transform.position.x, hits[i].point.y + height, transform.position.z);
-                    transform.position = Vector3.Lerp(transform.position, destHeight, velocityLerpCoef * Time.deltaTime);
-                    break;
-                }
-            }
+            Vector3 destHeight = new Vector3(transform.position.x, mimicAgentTransform.position.y, transform.position.z);
+            transform.position = Vector3.Lerp(transform.position, destHeight, velocityLerpCoef * Time.deltaTime);
         }
     }
 
