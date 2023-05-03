@@ -3,7 +3,9 @@ using UnityEngine;
 
 public class LivingEntity : MonoBehaviour, IDamageable
 {
+    [Header("Health Stats")]
     [SerializeField] private float startingHealth = 100f; // 시작 체력
+
     public float health { get; protected set; } // 현재 체력 자동구현 프로퍼티
     public bool dead { get; protected set; } // 사망 상태 자동구현 프로퍼티
     public event Action onDeath; // 사망 이벤트를 등록할 델리게이트 (event 타입을 붙여 외부에서 델리게이트를 실행하지 못하도록 막아둠 -> 디커플링)
