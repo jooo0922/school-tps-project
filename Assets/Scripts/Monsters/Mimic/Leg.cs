@@ -117,7 +117,10 @@ namespace MimicSpace
                 RaycastHit hit;
                 if (Physics.Linecast(footPosition, transform.position, out hit))
                 {
-                    growTarget = 0;
+                    if (!hit.collider.CompareTag("Mimic"))
+                    {
+                        growTarget = 0;
+                    }
                 }
             }
             // progression defines the percentage of deployement (1 being fully deployed and 0 fully retracted)
