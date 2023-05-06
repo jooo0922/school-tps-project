@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fireClip: {fileID: 8300000, guid: c1679c4221d14455aa88cea8b0d17448, type: 3}
   reloadClip: {fileID: 8300000, guid: ad68e852c4ab54f68b34af6f9197df43, type: 3}
-  damage: 25
+  damage: 20
   startAmmoRemain: 100
   magCapacity: 25
   timeBetweenFire: 0.3
