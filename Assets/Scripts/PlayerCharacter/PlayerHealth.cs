@@ -12,6 +12,9 @@ public class PlayerHealth : LivingEntity
     private AudioSource playerAudioPlayer; // 오디오 소스 컴포넌트
     private Animator playerAnimator; // 애니메이터 컴포넌트
     private PlayerMovement playerMovement; // PlayerMovement 컴포넌트
+    private PlayerShooter playerShooter; // PlayerShooter 컴포넌트
+    private PlayerGunManager playerGunManager; // PlayerGunManager 컴포넌트
+    private TPSCameraController TPSCameraController; // TPSCameraController 컴포넌트
 
     // 필요한 컴포넌트들 가져오기
     private void Awake()
@@ -19,6 +22,9 @@ public class PlayerHealth : LivingEntity
         playerAnimator = GetComponent<Animator>();
         playerAudioPlayer = GetComponent<AudioSource>();
         playerMovement = GetComponent<PlayerMovement>();
+        playerShooter = GetComponent<PlayerShooter>();
+        playerGunManager = GetComponent<PlayerGunManager>();
+        TPSCameraController = GetComponent<TPSCameraController>();
     }
 
     // LivingEntity 상태 초기화 처리 override
@@ -38,13 +44,28 @@ public class PlayerHealth : LivingEntity
     // 공격받았을 때 처리 override
     public override void OnDamage(float damage, Vector3 hitPoint, Vector3 hitNormal)
     {
-        base.OnDamage(damage, hitPoint, hitNormal);
+        if (!dead)
+        {
+            playerAudioPlayer.PlayOneShot(hitClip); // 플레이어가 사망하지 않은 상태에서만 피격 오디오 재생
+            playerAnimator.SetTrigger("Hit");
+        }
+
+        base.OnDamage(damage, hitPoint, hitNormal); // 대미지 적용 처리
     }
 
     // 사망 처리 override
     public override void Die()
     {
-        base.Die();
+        base.Die(); // 사망 처리 적용
+
+        playerAudioPlayer.PlayOneShot(deathClip); // 플레이어 사망 오디오 재생
+        playerAnimator.SetTrigger("Die"); // 사망 애니메이션 재생
+
+        // 플레이어 조작 관련 컴포넌트들 전부 비활성화
+        playerMovement.enabled = false;
+        playerShooter.enabled = false;
+        playerGunManager.enabled = false;
+        TPSCameraController.enabled = false;
     }
 
     // 아이템과 충돌 처리 이벤트 메서드
