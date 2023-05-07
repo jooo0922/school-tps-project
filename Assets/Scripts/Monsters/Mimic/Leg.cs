@@ -92,6 +92,12 @@ namespace MimicSpace
             Sethandles();
         }
 
+        public void Die()
+        {
+            canDie = true;
+            growTarget = 0;
+        }
+
         IEnumerator WaitToDie()
         {
             yield return new WaitForSeconds(minDuration);

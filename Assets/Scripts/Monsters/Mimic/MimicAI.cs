@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using MimicSpace;
 
 // Mimic AI 시스템 구현
 public class MimicAI : LivingEntity
@@ -15,8 +16,8 @@ public class MimicAI : LivingEntity
     public AudioClip hitSound; // 피격 시 재생할 오디오
 
     [Header("Mimic Stats")]
-    public float damage = 20f; // 공격력
-    public float timeBetAttack = 0.5f; // 공격 간격
+    public float damage = 5f; // 공격력
+    public float timeBetAttack = 1.25f; // 공격 간격
     public float speed = 3; // 이동속도
     public float height = 0.5f; // Mimic 높이
 
@@ -25,6 +26,11 @@ public class MimicAI : LivingEntity
 
     private LivingEntity targetEntity; // 추적 대상 저장 변수
     private AudioSource mimicAudioPlayer; // 오디오 소스 컴포넌트
+    private Rigidbody mimicRigidBody; // 리지드바디 컴포넌트
+    private Movement movement; // Movement 컴포넌트
+    private Mimic mimic; 
+
+    private float lastAttackTime; // 마지막 공격 시점
 
     // 추적 대상 존재 여부 검사용 프로퍼티
     private bool hasTarget
@@ -41,10 +47,15 @@ public class MimicAI : LivingEntity
         }
     }
 
-    // 필요한 컴포넌트들 가져오기
     private void Awake()
     {
+        // 필요한 컴포넌트들 가져오기
         mimicAudioPlayer = GetComponent<AudioSource>();
+        mimicRigidBody = GetComponent<Rigidbody>();
+        movement = GetComponent<Movement>();
+        mimic = GetComponent<Mimic>();
+
+        // navMeshAgent 설정값 초기화
         navMeshAgent.speed = speed;
         navMeshAgent.baseOffset = height;
     }
@@ -98,18 +109,63 @@ public class MimicAI : LivingEntity
     // 공격받았을 때의 처리 override
     public override void OnDamage(float damage, Vector3 hitPoint, Vector3 hitNormal)
     {
-        base.OnDamage(damage, hitPoint, hitNormal);
+        if (!dead)
+        {
+            // 사망상태가 아닌 경우에만 피격 실행 처리
+            hitEffect.transform.position = hitPoint;
+            hitEffect.transform.rotation = Quaternion.LookRotation(hitNormal); // 충돌표면 방향벡터(=피격방향)를 바라보도록 쿼터니온 회전값을 반환! -> 파티클 효과 게임오브젝트가 피격방향을 바라보도록 함
+            hitEffect.Play(); // 파티클 시스템 재생
+
+            // 충돌표면 방향벡터의 반대방향(총구에서 충돌표면까지의 방향) 으로 힘을 가하여 Mimic 이 뒤로 밀려나도록 함
+            // 현재 사용중인 GunData 의 damage 값만큼 힘을 가하도록 함. -> damage 가 클수록 멀리 밀려날 것.
+            mimicRigidBody.AddForce(-hitNormal * damage, ForceMode.Impulse);
+
+            mimicAudioPlayer.PlayOneShot(hitSound); // 피격 오디오 실행
+        }
+
+        base.OnDamage(damage, hitPoint, hitNormal); // 대미지 처리 실행
     }
 
     // 사망 시 처리 override
     public override void Die()
     {
-        base.Die();
+        base.Die(); // 사망 처리 실행
+
+        // 다른 mimicAgent 의 길찾기를 방해하지 않도록 사망한 Mimic 콜라이더 컴포넌트 비활성화
+        Collider mimicCollider = GetComponent<Collider>();
+        mimicCollider.enabled = false;
+
+        // mimicAgent 의 AI 추적 비활성화 및 중단 
+        navMeshAgent.isStopped = true;
+        navMeshAgent.enabled = false;
+
+        // Mimic 조작 관련 컴포넌트 전부 비활성화
+        mimicRigidBody.isKinematic = true; // 현재 게임오브젝트에서 물리엔진 적용을 비활성화
+        mimicRigidBody.detectCollisions = false; // 충돌감지 비활성화
+        mimic.enabled = false;
+        movement.enabled = false;
+
+        mimicAudioPlayer.PlayOneShot(deathSound); // 사망 오디오 재생
     }
 
     // 타겟과 충돌 시, 공격 처리
-    private void OnTriggerStay(Collider other)
+    private void OnCollisionStay(Collision collision)
     {
-        
+        // 몬스터가 사망상태가 아니고, 마지막 공격 시점에서 timeBetAttack 만큼 시간이 흘렀다면 공격 처리 진행
+        if (!dead && Time.time >= lastAttackTime + timeBetAttack)
+        {
+            LivingEntity attackTarget = collision.collider.GetComponent<LivingEntity>();
+
+            // 충돌한 타겟에 LivingEntity 컴포넌트가 존재하고, 추적대상과 일치하면 공격 실행
+            if (attackTarget != null && attackTarget == targetEntity)
+            {
+                lastAttackTime = Time.time; // 마지막 공격 시점을 현재 시간으로 업데이트
+
+                Vector3 hitPoint = collision.collider.ClosestPoint(transform.position); // 충돌한 상대방 게임 오브젝트의 Collider 물리 표면 중에서, 현재 Mimic 과 가장 가까운 위치를 반환
+                Vector3 hitNormal = transform.position - collision.collider.transform.position; // 좀비 위치 ~ 공격받은 상대방 위치로 향하는 방향벡터
+
+                attackTarget.OnDamage(damage, hitPoint, hitNormal); // 공격 실행
+            }
+        }
     }
 }

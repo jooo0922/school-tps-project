@@ -53,6 +53,15 @@ namespace MimicSpace
         [Tooltip("This must be updates as the Mimin moves to assure great leg placement")]
         public Vector3 velocity;
 
+        public void OnDisable()
+        {
+            Leg[] legs = transform.GetComponentsInChildren<Leg>();
+            foreach (Leg leg in legs)
+            {
+                leg.Die();
+            }
+        }
+
         void Start()
         {
             ResetMimic();
