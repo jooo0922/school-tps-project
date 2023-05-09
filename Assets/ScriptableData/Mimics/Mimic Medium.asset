@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3c2c14c9a7ef4eaba9755480024cd16, type: 3}
+  m_Name: Mimic Medium
+  m_EditorClassIdentifier: 
+  health: 150
+  damage: 15
+  speed: 2
+  height: 1
+  newLegRadius: 4.5
+  minLegDistance: 5
+  radius: 1.2
+  mimicColor: {r: 0.12296306, g: 0.0731132, b: 0.2924528, a: 1}
