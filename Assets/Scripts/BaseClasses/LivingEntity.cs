@@ -4,7 +4,7 @@ using UnityEngine;
 public class LivingEntity : MonoBehaviour, IDamageable
 {
     [Header("Health Stats")]
-    [SerializeField] private float startingHealth = 50f; // 시작 체력
+    [SerializeField] protected float startingHealth = 50f; // 시작 체력
 
     public float health { get; protected set; } // 현재 체력 자동구현 프로퍼티
     public bool dead { get; protected set; } // 사망 상태 자동구현 프로퍼티
