@@ -6,7 +6,7 @@ public class GunData : ScriptableObject
     public AudioClip fireClip; // 발사 소리
     public AudioClip reloadClip; // 재장전 소리
 
-    public float damage = 25; // 공격력
+    public float damage = 2; // 공격력
 
     public int startAmmoRemain = 100; // 초기 탄알 개수
     public int magCapacity = 25; // 탄창 용량

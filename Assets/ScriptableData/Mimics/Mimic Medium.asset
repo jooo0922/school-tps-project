@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3c2c14c9a7ef4eaba9755480024cd16, type: 3}
   m_Name: Mimic Medium
   m_EditorClassIdentifier: 
-  health: 150
-  damage: 15
+  health: 15
+  damage: 3.5
   speed: 2
   height: 1
   newLegRadius: 4.5

@@ -16,7 +16,7 @@ public class MimicAI : LivingEntity
     public AudioClip hitSound; // 피격 시 재생할 오디오
 
     [Header("Mimic Stats")]
-    public float damage = 5f; // 공격력
+    public float damage = 2f; // 공격력
     public float timeBetAttack = 1.25f; // 공격 간격
     public float speed = 3; // 이동속도
     public float height = 0.5f; // Mimic 높이
@@ -84,9 +84,9 @@ public class MimicAI : LivingEntity
                 // 추적 대상이 존재하지 않을 경우 처리
                 navMeshAgent.isStopped = true; // 추적대상이 없으므로 이동 중지
 
-                // 20유닛 반경 내의 가상의 구와 충돌하는 모든 콜라이더 컴포넌트들 가져오기
+                // 25유닛 반경 내의 가상의 구와 충돌하는 모든 콜라이더 컴포넌트들 가져오기
                 // 이때, target 레이어만 가져오도록 필터링함.
-                Collider[] colliders = Physics.OverlapSphere(transform.position, 15f, whatIsTarget);
+                Collider[] colliders = Physics.OverlapSphere(transform.position, 25f, whatIsTarget);
 
                 // 모든 콜라이더를 순회해서 LivingEntity 상속받은 게임 오브젝트 찾기
                 for (int i = 0; i < colliders.Length; i++)

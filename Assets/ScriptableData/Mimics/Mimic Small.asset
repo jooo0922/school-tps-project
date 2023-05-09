@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3c2c14c9a7ef4eaba9755480024cd16, type: 3}
   m_Name: Mimic Small
   m_EditorClassIdentifier: 
-  health: 100
-  damage: 5
+  health: 10
+  damage: 2
   speed: 3
   height: 0.5
   newLegRadius: 3
