@@ -28,6 +28,7 @@ public class MimicAI : LivingEntity
     private AudioSource mimicAudioPlayer; // 오디오 소스 컴포넌트
     private Rigidbody mimicRigidBody; // 리지드바디 컴포넌트
     private SphereCollider mimicCollider; // 구체 콜라이더 컴포넌트
+    private MeshRenderer mimicRenderer; // sphere 게임 오브젝트 렌더러 
     private Movement movement; // Movement 컴포넌트
     private Mimic mimic;
 
@@ -51,8 +52,14 @@ public class MimicAI : LivingEntity
         // collider 설정 초기화
         mimicCollider.radius = mimicData.radius;
 
+        // sphere 설정 초기화
+
         // 머티리얼 참조 초기화
-        mimic.mimicMaterial = mimicData.mimicMaterial;
+        if (mimicData.mimicMaterial != null)
+        {
+            mimicRenderer.material = mimicData.mimicMaterial;
+            mimic.mimicMaterial = mimicData.mimicMaterial;
+        }
     }
 
     // 추적 대상 존재 여부 검사용 프로퍼티
@@ -76,6 +83,7 @@ public class MimicAI : LivingEntity
         mimicAudioPlayer = GetComponent<AudioSource>();
         mimicRigidBody = GetComponent<Rigidbody>();
         mimicCollider = GetComponent<SphereCollider>();
+        mimicRenderer = GetComponentInChildren<MeshRenderer>(); // sphere 게임 오브젝트 렌더러
         movement = GetComponent<Movement>();
         mimic = GetComponent<Mimic>();
 

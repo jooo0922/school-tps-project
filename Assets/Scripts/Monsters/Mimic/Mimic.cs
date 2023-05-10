@@ -68,7 +68,6 @@ namespace MimicSpace
         void Start()
         {
             ResetMimic();
-            ResetMaterial();
         }
 
         private void OnValidate()
@@ -93,16 +92,6 @@ namespace MimicSpace
             maxLegDistance = newLegRadius * 2.1f;
 
         }
-
-        private void ResetMaterial()
-        {
-            if (mimicMaterial != null)
-            {
-                MeshRenderer mimicRenderer = GetComponentInChildren<MeshRenderer>(); // sphere 게임 오브젝트 렌더러
-                mimicRenderer.material = mimicMaterial;
-            }
-        }
-
 
         IEnumerator NewLegCooldown()
         {
