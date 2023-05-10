@@ -19,4 +19,4 @@ MonoBehaviour:
   newLegRadius: 4.5
   minLegDistance: 5
   radius: 1.2
-  mimicColor: {r: 0.12296306, g: 0.0731132, b: 0.2924528, a: 1}
+  mimicMaterial: {fileID: 2100000, guid: 8004ab62bfed84fa6bf4ea0925bdb7e4, type: 2}

@@ -20,6 +20,6 @@ public class MimicData : ScriptableObject
     [Tooltip("Radius of Sphere Collider applied to mimic")]
     public float radius = 0.8f;
 
-    [Header("Color")]
-    public Color mimicColor = new Color(0.019f, 0f, 0.086f);
+    [Header("Material")]
+    public Material mimicMaterial;
 }
