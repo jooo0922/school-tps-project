@@ -48,9 +48,13 @@ public class MimicAI : LivingEntity
         // legs 관련 데이터 초기화
         mimic.newLegRadius = mimicData.newLegRadius;
         mimic.minLegDistance = mimicData.minLegDistance;
+        mimic.widthCurve = mimicData.widthCurve;
 
         // collider 설정 초기화
         mimicCollider.radius = mimicData.radius;
+
+        // rigidBody 설정 초기화
+        mimicRigidBody.mass = mimicData.mass;
 
         // sphere 설정 초기화
         mimicRenderer.gameObject.transform.localScale = mimicData.scale;

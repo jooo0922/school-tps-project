@@ -44,7 +44,7 @@ namespace MimicSpace
         public float maxOscillationSpeed;
         float oscillationProgress;
 
-        public void Initialize(Vector3 footPosition, int legResolution, float maxLegDistance, float growCoef, Mimic myMimic, float lifeTime, Material mimicMaterial)
+        public void Initialize(Vector3 footPosition, int legResolution, float maxLegDistance, float growCoef, Mimic myMimic, float lifeTime, Material mimicMaterial, AnimationCurve widthCurve)
         {
             this.footPosition = footPosition;
             this.legResolution = legResolution;
@@ -57,6 +57,7 @@ namespace MimicSpace
             {
                 this.legLine.material = mimicMaterial;
             }
+            legLine.widthCurve = widthCurve;
             handles = new Vector3[handlesCount];
 
             // We initialize a bunch of random offsets for many aspects of the legs so every leg part is unique

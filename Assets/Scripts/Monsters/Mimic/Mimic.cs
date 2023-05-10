@@ -56,6 +56,9 @@ namespace MimicSpace
         [HideInInspector]
         public Material mimicMaterial;
 
+        [HideInInspector]
+        public AnimationCurve widthCurve;
+
         public void OnDisable()
         {
             Leg[] legs = transform.GetComponentsInChildren<Leg>();
@@ -165,7 +168,7 @@ namespace MimicSpace
                 newLeg = Instantiate(legPrefab, transform.position, Quaternion.identity);
             }
             newLeg.SetActive(true);
-            newLeg.GetComponent<Leg>().Initialize(footPosition, legResolution, maxLegDistance, growCoef, myMimic, lifeTime, mimicMaterial);
+            newLeg.GetComponent<Leg>().Initialize(footPosition, legResolution, maxLegDistance, growCoef, myMimic, lifeTime, mimicMaterial, widthCurve);
             newLeg.transform.SetParent(myMimic.transform);
         }
 
