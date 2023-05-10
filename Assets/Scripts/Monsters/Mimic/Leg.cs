@@ -44,11 +44,8 @@ namespace MimicSpace
         public float maxOscillationSpeed;
         float oscillationProgress;
 
-        public Color myColor;
-
-        public void Initialize(Vector3 footPosition, int legResolution, float maxLegDistance, float growCoef, Mimic myMimic, float lifeTime)
+        public void Initialize(Vector3 footPosition, int legResolution, float maxLegDistance, float growCoef, Mimic myMimic, float lifeTime, Material mimicMaterial)
         {
-            myColor = new Color(Random.Range(0, 1f), Random.Range(0, 1f), Random.Range(0, 1f));
             this.footPosition = footPosition;
             this.legResolution = legResolution;
             this.maxLegDistance = maxLegDistance;
@@ -56,6 +53,10 @@ namespace MimicSpace
             this.myMimic = myMimic;
 
             this.legLine = GetComponent<LineRenderer>();
+            if (mimicMaterial != null)
+            {
+                this.legLine.material = mimicMaterial;
+            }
             handles = new Vector3[handlesCount];
 
             // We initialize a bunch of random offsets for many aspects of the legs so every leg part is unique

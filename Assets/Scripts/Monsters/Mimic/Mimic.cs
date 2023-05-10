@@ -53,6 +53,9 @@ namespace MimicSpace
         [Tooltip("This must be updates as the Mimin moves to assure great leg placement")]
         public Vector3 velocity;
 
+        [HideInInspector]
+        public Material mimicMaterial;
+
         public void OnDisable()
         {
             Leg[] legs = transform.GetComponentsInChildren<Leg>();
@@ -65,6 +68,7 @@ namespace MimicSpace
         void Start()
         {
             ResetMimic();
+            ResetMaterial();
         }
 
         private void OnValidate()
@@ -89,6 +93,16 @@ namespace MimicSpace
             maxLegDistance = newLegRadius * 2.1f;
 
         }
+
+        private void ResetMaterial()
+        {
+            if (mimicMaterial != null)
+            {
+                MeshRenderer mimicRenderer = GetComponentInChildren<MeshRenderer>(); // sphere 게임 오브젝트 렌더러
+                mimicRenderer.material = mimicMaterial;
+            }
+        }
+
 
         IEnumerator NewLegCooldown()
         {
@@ -163,7 +177,7 @@ namespace MimicSpace
                 newLeg = Instantiate(legPrefab, transform.position, Quaternion.identity);
             }
             newLeg.SetActive(true);
-            newLeg.GetComponent<Leg>().Initialize(footPosition, legResolution, maxLegDistance, growCoef, myMimic, lifeTime);
+            newLeg.GetComponent<Leg>().Initialize(footPosition, legResolution, maxLegDistance, growCoef, myMimic, lifeTime, mimicMaterial);
             newLeg.transform.SetParent(myMimic.transform);
         }
 
