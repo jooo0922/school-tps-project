@@ -20,6 +20,10 @@ public class MimicData : ScriptableObject
     [Tooltip("Radius of Sphere Collider applied to mimic")]
     public float radius = 0.8f;
 
+    [Header("Sphere")]
+    [Tooltip("Scale of mimic's sphere")]
+    public Vector3 scale = new Vector3(0.2f, 0.2f, 0.2f);
+
     [Header("Material")]
     public Material mimicMaterial;
 }

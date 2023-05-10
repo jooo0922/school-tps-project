@@ -53,6 +53,7 @@ public class MimicAI : LivingEntity
         mimicCollider.radius = mimicData.radius;
 
         // sphere 설정 초기화
+        mimicRenderer.gameObject.transform.localScale = mimicData.scale;
 
         // 머티리얼 참조 초기화
         if (mimicData.mimicMaterial != null)
