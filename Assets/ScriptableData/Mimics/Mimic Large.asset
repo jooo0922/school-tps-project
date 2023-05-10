@@ -15,8 +15,52 @@ MonoBehaviour:
   health: 20
   damage: 5
   speed: 1
-  height: 1.5
-  newLegRadius: 5
-  minLegDistance: 5.5
-  radius: 1.6
+  height: 0.7
+  newLegRadius: 1.7
+  minLegDistance: 1.5
+  widthCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: -0.17946345
+      outSlope: -0.17946345
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.44656885
+    - serializedVersion: 3
+      time: 0.206
+      value: 0.291
+      inSlope: -0.35019353
+      outSlope: -0.35019353
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.3797655
+      outWeight: 0.12611225
+    - serializedVersion: 3
+      time: 0.923
+      value: 0.111
+      inSlope: -0.27213302
+      outSlope: -0.27213302
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 1
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -4.548855
+      outSlope: -4.548855
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.30974126
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  radius: 0.8
+  mass: 0.3
+  scale: {x: 0.4, y: 0.4, z: 0.4}
   mimicMaterial: {fileID: 2100000, guid: 8e68d9ae342684d7898e1e803b585a4d, type: 2}

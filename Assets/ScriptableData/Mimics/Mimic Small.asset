@@ -14,9 +14,52 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 10
   damage: 2
-  speed: 3
-  height: 0.5
-  newLegRadius: 3
-  minLegDistance: 4.5
-  radius: 0.8
+  speed: 2
+  height: 0.3
+  newLegRadius: 1.2
+  minLegDistance: 1
+  widthCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.6
+      inSlope: -0.2662487
+      outSlope: -0.2662487
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.4284474
+    - serializedVersion: 3
+      time: 0.206
+      value: 0.12
+      inSlope: -0.24172595
+      outSlope: -0.24172595
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.4973983
+      outWeight: 0.12591928
+    - serializedVersion: 3
+      time: 0.923
+      value: 0.03
+      inSlope: -0.1251848
+      outSlope: -0.1251848
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.14834715
+      outWeight: 1
+    - serializedVersion: 3
+      time: 0.998291
+      value: -0.0023498535
+      inSlope: -0.6921543
+      outSlope: -0.6921543
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 1
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  radius: 0.4
+  scale: {x: 0.2, y: 0.2, z: 0.2}
   mimicMaterial: {fileID: 2100000, guid: 43a2faec583568c4e8e790ad05f719b3, type: 2}

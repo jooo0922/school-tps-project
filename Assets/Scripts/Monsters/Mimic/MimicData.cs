@@ -15,10 +15,15 @@ public class MimicData : ScriptableObject
     public float newLegRadius = 3f;
     [Tooltip("Minimum leg distance from center of mimic")]
     public float minLegDistance = 4.5f;
+    [Tooltip("Width Curve of mimic's legs")]
+    public AnimationCurve widthCurve = AnimationCurve.Linear(0f, 1f, 1f, 1f);
 
     [Header("Collider")]
     [Tooltip("Radius of Sphere Collider applied to mimic")]
     public float radius = 0.8f;
+
+    [Header("RigidBody")]
+    public float mass = 0.1f;
 
     [Header("Sphere")]
     [Tooltip("Scale of mimic's sphere")]
