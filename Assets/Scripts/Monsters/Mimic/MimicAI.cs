@@ -27,10 +27,33 @@ public class MimicAI : LivingEntity
     private LivingEntity targetEntity; // 추적 대상 저장 변수
     private AudioSource mimicAudioPlayer; // 오디오 소스 컴포넌트
     private Rigidbody mimicRigidBody; // 리지드바디 컴포넌트
+    private SphereCollider mimicCollider; // 구체 콜라이더 컴포넌트
     private Movement movement; // Movement 컴포넌트
-    private Mimic mimic; 
+    private Mimic mimic;
 
     private float lastAttackTime; // 마지막 공격 시점
+
+    // MimicData 를 전달받아서 데이터 초기화
+    public void Setup(MimicData mimicData)
+    {
+        // 체력 초기화
+        startingHealth = mimicData.health;
+        health = mimicData.health;
+
+        // navMeshAgent 설정값 초기화
+        navMeshAgent.speed = mimicData.speed;
+        navMeshAgent.baseOffset = mimicData.height;
+
+        // legs 관련 데이터 초기화
+        mimic.newLegRadius = mimicData.newLegRadius;
+        mimic.minLegDistance = mimicData.minLegDistance;
+
+        // collider 설정 초기화
+        mimicCollider.radius = mimicData.radius;
+
+        // 머티리얼 참조 초기화
+        mimic.mimicMaterial = mimicData.mimicMaterial;
+    }
 
     // 추적 대상 존재 여부 검사용 프로퍼티
     private bool hasTarget
@@ -52,12 +75,10 @@ public class MimicAI : LivingEntity
         // 필요한 컴포넌트들 가져오기
         mimicAudioPlayer = GetComponent<AudioSource>();
         mimicRigidBody = GetComponent<Rigidbody>();
+        mimicCollider = GetComponent<SphereCollider>();
         movement = GetComponent<Movement>();
         mimic = GetComponent<Mimic>();
 
-        // navMeshAgent 설정값 초기화
-        navMeshAgent.speed = speed;
-        navMeshAgent.baseOffset = height;
     }
 
     // AI 추적 루틴 트리거
