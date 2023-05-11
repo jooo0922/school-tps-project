@@ -1,10 +1,12 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 // 오브젝트 풀을 적용한 총 게임 오브젝트 관리 모듈
 public class PlayerGunManager : MonoBehaviour
 {
+    public event Action<bool> onMountChange; // 클래스 간 결합도를 낮추기 위한 델리게이트
+
     public Transform gunPivot; // 총 프리팹 인스턴스를 추가할 부모 오브젝트
     public AudioClip gunSwapClip; // 무기 교체 오디오 클립
 
@@ -87,6 +89,7 @@ public class PlayerGunManager : MonoBehaviour
             playerAnimator.SetBool("IsMounted", isMounted);
             playerShooter.enabled = isMounted;
             playerAudioSource.PlayOneShot(gunSwapClip);
+            onMountChange(isMounted);
         }
     }
 

@@ -8,8 +8,27 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private Transform cameraArm; // TPS 카메라의 방향벡터를 참조할 카메라 암 오브젝트
 
-    public float moveSpeed = 3f; // 플레이어 이동 속력
-    public float jumpForce = 4f; // 플레이어 점프력
+    [Header("Move Speed")]
+    public float mountMoveSpeed = 3f;
+    public float unmountMoveSpeed = 4f;
+    [Header("Jump Force")]
+    public float mountJumpForce = 4f;
+    public float unmountJumpForce = 5f;
+
+    private float _moveSpeed; // 플레이어 이동 속력
+    private float _jumpForce; // 플레이어 점프력
+
+    public float moveSpeed
+    {
+        get { return _moveSpeed; }
+        private set { _moveSpeed = value; }
+    }
+    public float jumpForce
+    {
+        get { return _jumpForce; }
+        private set { _jumpForce = value; }
+    }
+
     private bool isGrounded = false; // 바닥에 닿았는지 상태 여부 -> 기본값 false. why? 애니메이터 탭에서 파라미터 기본값이 체크해제(false)로 되어있고, 실제로 캐릭터와 캠슐 콜라이더가 지면에서 살짝 떠 있는 상태이기 때문!
     private bool isPreparingToJump = false; // 점프 준비 상태 여부
     private bool isLanding = false; // 착지 상태 여부
@@ -18,12 +37,50 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody playerRigidBody; // 플레이어 캐릭터 리지드바디 컴포넌트 -> 플레이어 캐릭터의 물리 처리를 고려한 이동 구현
     private Animator playerAnimator; // 플레이어 캐릭터 > VRoid 게임 오브젝트의 애니메이터 컴포넌트
 
+    // 이동 및 점프 상태값 초기화
+    private void Awake()
+    {
+        moveSpeed = unmountMoveSpeed;
+        jumpForce = unmountJumpForce;
+    }
+
     // 플레이어 캐릭터 게임 오브젝트 활성화 시점에 필요한 컴포넌트들을 모두 가져옴.
-    void Start()
+    private void Start()
     {
         playerInput = GetComponent<PlayerInput>();
         playerRigidBody = GetComponent<Rigidbody>();
         playerAnimator = GetComponent<Animator>(); // 애니메이터 컴포넌트는 플레이어 캐릭터의 자식 게임오브젝트에 추가되어 있으니 거기서 가져온 것!
+
+        // onMountChange 이벤트 발생 시 호출할 이벤트 리스너 추가 > 이벤트로 클래스 간 의존성 낮춤
+        PlayerGunManager playerGunManager = FindObjectOfType<PlayerGunManager>();
+        playerGunManager.onMountChange += ChangeMoveSpeed;
+        playerGunManager.onMountChange += ChangeJumpForce;
+    }
+
+    // 이동속도 변경 메서드
+    private void ChangeMoveSpeed(bool isMounted)
+    {
+        if (isMounted)
+        {
+            moveSpeed = mountMoveSpeed;
+        }
+        else
+        {
+            moveSpeed = unmountMoveSpeed;
+        }
+    }
+
+    // 점프력 변경 메서드
+    private void ChangeJumpForce(bool isMounted)
+    {
+        if (isMounted)
+        {
+            jumpForce = mountJumpForce;
+        }
+        else
+        {
+            jumpForce = unmountJumpForce;
+        }
     }
 
     // 리지드바디 컴포넌트로 플레이어 캐릭터 이동 구현
