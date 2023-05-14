@@ -23,6 +23,8 @@ public class Gun : MonoBehaviour
     public int ammoRemain; // 남아있는 모든 탄알 수
     public int magAmmo; // 현재 탄창 안에 남아있는 탄알 수
 
+    public string gunName; // 총기 식별자
+
     private AudioSource gunAudioPlayer; // 총 효과음 재생
     private Animator gunAnimator; // 총기 반동 애니메이션 재생
 
@@ -70,6 +72,7 @@ public class Gun : MonoBehaviour
     {
         ammoRemain = gunData.startAmmoRemain; // 전체 탄알 수 초기화
         magAmmo = gunData.magCapacity; // 현재 탄창 탄알 수 초기화
+        gunName = gunData.gunName; // 총기 식별자 초기화
         state = State.Ready; // 현재 총 상태 초기화
         lastFireTime = 0; // 총을 마지막으로 발사한 시점 초기화
     }

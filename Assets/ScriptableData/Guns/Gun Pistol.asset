@@ -19,3 +19,4 @@ MonoBehaviour:
   magCapacity: 15
   timeBetweenFire: 0.35
   reloadTime: 1.5
+  gunName: pistol
