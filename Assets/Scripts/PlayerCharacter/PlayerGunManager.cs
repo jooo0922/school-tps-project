@@ -27,7 +27,10 @@ public class PlayerGunManager : MonoBehaviour
     public void addGunAmmo(string gunName, int ammo)
     {
         Gun foundGun = gunPool.Find(gun => gun.gunName == gunName);
-        foundGun.ammoRemain += ammo;
+        if (foundGun != null)
+        {
+            foundGun.ammoRemain += ammo;
+        }
     }
 
     private void Awake()
@@ -61,7 +64,8 @@ public class PlayerGunManager : MonoBehaviour
             if (gun)
             {
                 gunPool.Add(gun);
-                gun.gameObject.SetActive(false);
+                gun.gameObject.SetActive(true); // Gun 컴포넌트 상태값 초기화를 위해 오브젝트 일시 활성화
+                gun.gameObject.SetActive(false); // 다시 비활성화 처리
                 gun.transform.SetParent(gunPivot, false);
             }
         }
