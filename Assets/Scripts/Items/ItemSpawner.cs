@@ -7,9 +7,9 @@ public class ItemSpawner : MonoBehaviour
     public GameObject[] items; // 생성할 아이템 프리팹 배열
     public Transform playerTransform; // 플레이어의 트랜스폼 컴포넌트
 
-    public float maxDistance = 5f; // 플레이어와 아이템 간 최대 배치 반경
-    public float timeBetSpawnMax = 7f; // 최대 생성 시간 간격
-    public float timeBetSpawnMin = 2f; // 최소 생성 시간 간격
+    public float maxDistance = 10f; // 플레이어와 아이템 간 최대 배치 반경
+    public float timeBetSpawnMax = 10f; // 최대 생성 시간 간격
+    public float timeBetSpawnMin = 4f; // 최소 생성 시간 간격
 
     private float timeBetSpawn; // 생성 시간 간격
     private float lastSpawnTime; // 마지막 생성 시점
@@ -36,13 +36,12 @@ public class ItemSpawner : MonoBehaviour
     {
         // 플레이어 근처에 내비메시 위의 랜덤 좌표 구하기
         Vector3 spawnPosition = GetRandomPointOnNavMesh(playerTransform.position, maxDistance);
-        spawnPosition += Vector3.up * 0.5f; // 바닥에서 0.5만큼 위로 올리기
 
         // 아이템 중 하나를 무작위로 골라 랜덤 위치에 생성
         GameObject selectedItem = items[Random.Range(0, items.Length)];
         GameObject item = Instantiate(selectedItem, spawnPosition, Quaternion.identity);
 
-        Destroy(item, 5f); // 생성된 아이템 인스턴스가 사용되지 않는다면 5초 후 파괴시킴
+        Destroy(item, 10f); // 생성된 아이템 인스턴스가 사용되지 않는다면 5초 후 파괴시킴
     }
 
     // 내비메시 위의 랜덤한 위치를 반환함
