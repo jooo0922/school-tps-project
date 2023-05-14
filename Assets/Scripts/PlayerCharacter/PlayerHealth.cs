@@ -72,7 +72,7 @@ public class PlayerHealth : LivingEntity
     }
 
     // 아이템과 충돌 처리 이벤트 메서드
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         // 플레이어가 살아있고, pickup 버튼을 누른 상태에서만 아이템 사용 처리
         if (!dead && playerInput.pickup)
