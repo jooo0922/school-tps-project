@@ -24,6 +24,12 @@ public class PlayerGunManager : MonoBehaviour
 
     private bool isMounted = false; // 무기 착용 상태 여부
 
+    public void addGunAmmo(string gunName, int ammo)
+    {
+        Gun foundGun = gunPool.Find(gun => gun.gunName == gunName);
+        foundGun.ammoRemain += ammo;
+    }
+
     private void Awake()
     {
         InitComponents();
