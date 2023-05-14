@@ -14,6 +14,7 @@ public class PlayerInput : MonoBehaviour
     public string reloadButtonName = "Reload"; // 재장전을 위한 입력 버튼 이름
     public string jumpButtonName = "Jump"; // 점프를 위한 입력 버튼 이름
     public string mountButtonName = "Mount"; // 무기 장착을 위한 입력 버튼 이름
+    public string pickupButtonName = "Pickup"; // 아이템 줍기를 위한 입력 버튼 이름
 
     // 각 숫자키에 대응되는 정수값을 key-value 쌍으로 저장
     public Dictionary<KeyCode, int> numberKeys = new Dictionary<KeyCode, int>()
@@ -31,6 +32,7 @@ public class PlayerInput : MonoBehaviour
     public bool reload { get; private set; } // 감지된 재장전 입력값
     public bool jump { get; private set; } // 감지된 점프 입력값
     public bool mount { get; private set; } // 감지된 무기 장착 입력값
+    public bool pickup { get; private set; } // 감지된 아이템 줍기 입력값
     public int gunIndex { get; private set; } = 0; // 감지된 무기 인덱스 입력값
 
 
@@ -53,6 +55,8 @@ public class PlayerInput : MonoBehaviour
         jump = Input.GetButton(jumpButtonName);
         // 무기 장착 입력 상태 업데이트
         mount = Input.GetButtonDown(mountButtonName);
+        // 아이템 줍기 입력 상태 업데아트
+        pickup = Input.GetButtonDown(pickupButtonName);
 
         // 숫자키 입력 시, 대응되는 정수값으로 총 인덱스 업데이트
         gunIndex = -1; // 숫자키 입력이 감지되지 않을 경우, 유효하지 않은 인덱스로 초기화
