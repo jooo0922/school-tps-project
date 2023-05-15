@@ -9,9 +9,14 @@ Shader "Custom/Blob"
         Tags { "RenderType"="Opaque" } // 불투명 셰이더 적용
 
         CGPROGRAM
-        #pragma surface surf Standard
+        #pragma surface surf Standard vertex:vert
 
         sampler2D _MainTex;
+
+        // 버텍스 쉐이더에서 노이즈값에 따른 각 정점의 Blob 움직임 계산
+        void vert(inout appdata_full v) {
+            
+        }
 
         struct Input
         {
