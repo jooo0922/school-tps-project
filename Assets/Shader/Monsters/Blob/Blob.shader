@@ -3,6 +3,10 @@ Shader "Custom/Blob"
     Properties
     {
         _MainTex ("Albedo (RGB)", 2D) = "white" {}
+        _NoiseTex("Noise Texture", 2D) = "white" {}
+        _Amplitude("Amplitude", Range(0.5,1.5)) = 1
+        _Frequency("Frequency", Range(0.1,1)) = 0.4
+        _Radius("Radius", float) = 1
     }
     SubShader
     {
@@ -11,7 +15,12 @@ Shader "Custom/Blob"
         CGPROGRAM
         #pragma surface surf Standard vertex:vert
 
+        // 변수 선언
         sampler2D _MainTex;
+        sampler2D _NoiseTex;
+        float _Amplitude;
+        float _Frequency;
+        float _Radius;
 
         // 버텍스 쉐이더에서 노이즈값에 따른 각 정점의 Blob 움직임 계산
         void vert(inout appdata_full v) {
