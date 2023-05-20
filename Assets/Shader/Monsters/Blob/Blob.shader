@@ -2,33 +2,35 @@ Shader "Custom/Blob"
 {
     Properties
     {
-        _BaseColor ("Color", Color) = (1,1,1,1)
-        //[HDR]_EmissionColor ("Color", Color) = (1,1,1,1)
+        _BaseColor ("BaseColor", Color) = (1,1,1,1)
+        _NoiseColor ("NoiseColor", Color) = (1,1,1,1)
         _MainTex ("Albedo (RGB)", 2D) = "white" {}
         _BumpMap ("NormalMap", 2D) = "bump" {}
+        _NoiseTex ("NoiseTex", 2D) = "white" {}
         _Smoothness("Smoothness", Range(0,1)) = 0.819
-        _Metallic("Metallic", Range(0,1)) = 0.0
         _Amplitude("Amplitude", Range(0.5,1.5)) = 1
         _Frequency("Frequency", Range(0.1,1)) = 0.35
-        _Radius("Radius", float) = 1
+        _Radius("Radius", Range(0.1,2)) = 0.814
+        _RimPower("RimPower", Range(0.1, 10)) = 1.2
     }
     SubShader
     {
-        Tags { "RenderType"="Opaque" } // 불투명 셰이더 적용
+        Tags { "RenderType"="Transparent" "Queue"="Transparent" } // 알파 블렌딩 셰이더 적용
 
         CGPROGRAM
-        #pragma surface surf Standard addshadow vertex:vert // addshadow 옵션은 현재 렌더링 결과에 Blob 의 그림자 추가 -> Blob 그림자가 더 자연스럽게 렌더링되도록 함.
+        #pragma surface surf Standard addshadow alpha:fade vertex:vert // addshadow 옵션은 현재 렌더링 결과에 Blob 의 그림자 추가 -> Blob 그림자가 더 자연스럽게 렌더링되도록 함.
 
         // 변수 선언
         fixed4 _BaseColor;
-        //float4 _EmissionColor;
+        float4 _NoiseColor;
         sampler2D _MainTex;
         sampler2D _BumpMap;
+        sampler2D _NoiseTex;
         float _Smoothness;
-        float _Metallic;
         float _Amplitude; // Blob 주기
         float _Frequency; // Blob 규모
         float _Radius; // 로컬 원점으로부터 각 버텍스까지의 최대 반경
+        float _RimPower; // rim 값을 exponential 하게 계산 -> rim 영역 두께 조정 
 
         // Classic Perlin Noise 코드 추가
         float3 mod289(float3 x)
@@ -130,16 +132,24 @@ Shader "Custom/Blob"
         {
             float2 uv_MainTex;
             float2 uv_BumpMap;
+            float2 uv_NoiseTex;
+            float3 viewDir; // 카메라 뷰 벡터 포함 -> rim 라이트 계산
         };
 
         void surf (Input IN, inout SurfaceOutputStandard o)
         {
             fixed4 c = tex2D (_MainTex, IN.uv_MainTex) * _BaseColor;
-            o.Albedo = c.rgb;
-            o.Normal = UnpackNormal(tex2D(_BumpMap, IN.uv_BumpMap));
+            float4 noise = tex2D(_NoiseTex, IN.uv_NoiseTex + _Time.x); // noise 텍스쳐 샘플링 시, uv좌표에 시간값을 더해 텍스쳐 애니메이션 구현
+
+            // 노말맵 샘플링 및 노말값 적용 -> 노멀벡터 변경
+            o.Normal = UnpackNormal(tex2D(_BumpMap, IN.uv_BumpMap)); 
+
+            // rim 값 계산
+            float rim = saturate(dot(o.Normal, IN.viewDir)); // 프래그먼트의 노멀벡터와 카메라 뷰 벡터 내적의 음수값 제거 > 조명값 계산이 부정확해지는 문제 방지
+            rim = pow(1 - rim, _RimPower) * 1.25; // rim 값을 거꾸로 뒤집고, _RimPower 만큼 거듭제곱해서 rim 영역 두께 조절 + rim 값 범위를 0 ~ 1.25 까지 확장
+
+            o.Albedo = c.rgb + noise * _NoiseColor.rgb * rim; // 뒤집어진 rim 영역 (가장자리 부분) 위주로 animated noise 가 적용되도록 함
             o.Smoothness = _Smoothness;
-            o.Metallic = _Metallic;
-            //o.Emission = _EmissionColor.rgb;
             o.Alpha = c.a;
         }
         ENDCG
