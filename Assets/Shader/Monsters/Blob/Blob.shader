@@ -2,9 +2,14 @@ Shader "Custom/Blob"
 {
     Properties
     {
+        _BaseColor ("Color", Color) = (1,1,1,1)
+        //[HDR]_EmissionColor ("Color", Color) = (1,1,1,1)
         _MainTex ("Albedo (RGB)", 2D) = "white" {}
+        _BumpMap ("NormalMap", 2D) = "bump" {}
+        _Smoothness("Smoothness", Range(0,1)) = 0.819
+        _Metallic("Metallic", Range(0,1)) = 0.0
         _Amplitude("Amplitude", Range(0.5,1.5)) = 1
-        _Frequency("Frequency", Range(0.1,1)) = 0.4
+        _Frequency("Frequency", Range(0.1,1)) = 0.35
         _Radius("Radius", float) = 1
     }
     SubShader
@@ -15,7 +20,12 @@ Shader "Custom/Blob"
         #pragma surface surf Standard addshadow vertex:vert // addshadow 옵션은 현재 렌더링 결과에 Blob 의 그림자 추가 -> Blob 그림자가 더 자연스럽게 렌더링되도록 함.
 
         // 변수 선언
+        fixed4 _BaseColor;
+        //float4 _EmissionColor;
         sampler2D _MainTex;
+        sampler2D _BumpMap;
+        float _Smoothness;
+        float _Metallic;
         float _Amplitude; // Blob 주기
         float _Frequency; // Blob 규모
         float _Radius; // 로컬 원점으로부터 각 버텍스까지의 최대 반경
@@ -119,12 +129,17 @@ Shader "Custom/Blob"
         struct Input
         {
             float2 uv_MainTex;
+            float2 uv_BumpMap;
         };
 
         void surf (Input IN, inout SurfaceOutputStandard o)
         {
-            fixed4 c = tex2D (_MainTex, IN.uv_MainTex);
+            fixed4 c = tex2D (_MainTex, IN.uv_MainTex) * _BaseColor;
             o.Albedo = c.rgb;
+            o.Normal = UnpackNormal(tex2D(_BumpMap, IN.uv_BumpMap));
+            o.Smoothness = _Smoothness;
+            o.Metallic = _Metallic;
+            //o.Emission = _EmissionColor.rgb;
             o.Alpha = c.a;
         }
         ENDCG
