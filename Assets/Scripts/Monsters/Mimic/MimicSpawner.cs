@@ -62,6 +62,5 @@ public class MimicSpawner : MonoBehaviour
         // Mimic 사망 시 콜백함수들을 onDeath 델리게이트에 등록
         mimicAI.onDeath += () => mimics.Remove(mimic); // 사망한 Mimic 을 리스트에서 제거
         mimicAI.onDeath += () => Destroy(mimic.gameObject, 3f); // 사망한 Mimic 인스턴스 3초 뒤 파괴
-        // TODO: 추후, GameManager 에 사망한 Mimic 횟수 또는 점수 갱신 콜백함수도 추가
     }
 }
