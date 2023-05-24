@@ -25,6 +25,14 @@ public class GameManager : MonoBehaviour
 
     public bool isGameover { get; private set; } // 게임오버 상태 자동구현 프로퍼티
     public bool isGameWon { get; private set; } // 게임 승패 자동구현 프로퍼티
+    public int mimicKillCount { get; private set; } // Mimic 킬 수 자동구현 프로퍼티
+
+    // 몬스터 킬 점수 추가
+    public void IncreaseMimicKillCount()
+    {
+        mimicKillCount++;
+        // TODO : UI 업데이트 처리
+    }
 
     // 게임 승리 처리
     public void SetGameWon()
@@ -59,11 +67,14 @@ public class GameManager : MonoBehaviour
     {
         PlayerHealth playerHealth = FindObjectOfType<PlayerHealth>();
         BossMonster bossMonster = FindObjectOfType<BossMonster>();
+        MimicAI mimicAI = FindObjectOfType<MimicAI>();
 
         playerHealth.onDeath += SetGameLost; // PlayerHealth 사망 시 게임패배 처리를 이벤트 콜백으로 등록
         playerHealth.onDeath += EndGame; // PlayerHealth 사망 시 게임오버 처리를 이벤트 콜백으로 등록
 
         bossMonster.onDeath += SetGameWon; // BossMonster 사망 시 게임승리 처리를 이벤트 콜백으로 등록
         bossMonster.onDeath += EndGame; // BossMonster 사망 시 게임오버 처리를 이벤트 콜백으로 등록
+
+        mimicAI.onDeath += IncreaseMimicKillCount; // Mimic 사망 시 mimic 킬 수 증가 처리를 이벤트 콜백으로 등록
     }
 }
