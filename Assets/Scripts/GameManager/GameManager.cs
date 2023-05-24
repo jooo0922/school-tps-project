@@ -31,27 +31,15 @@ public class GameManager : MonoBehaviour
     public void IncreaseMimicKillCount()
     {
         mimicKillCount++;
-        // TODO : UI 업데이트 처리
+        // TODO: UI 업데이트 처리
     }
-
-    // 게임 승리 처리
-    public void SetGameWon()
-    {
-        isGameWon = true;
-    }
-
-    // 게임 패배 처리
-    public void SetGameLost()
-    {
-        isGameWon = false;
-    }
-
 
     // 게임오버 처리
-    public void EndGame()
+    public void EndGame(bool won)
     {
         isGameover = true;
-        // TODO : UI 업데이트 처리
+        isGameWon = won; // 게임 승패 여부 상태값 업데이트
+        // TODO: UI 업데이트 처리
     }
 
     private void Awake()
@@ -67,14 +55,8 @@ public class GameManager : MonoBehaviour
     {
         PlayerHealth playerHealth = FindObjectOfType<PlayerHealth>();
         BossMonster bossMonster = FindObjectOfType<BossMonster>();
-        MimicAI mimicAI = FindObjectOfType<MimicAI>();
 
-        playerHealth.onDeath += SetGameLost; // PlayerHealth 사망 시 게임패배 처리를 이벤트 콜백으로 등록
-        playerHealth.onDeath += EndGame; // PlayerHealth 사망 시 게임오버 처리를 이벤트 콜백으로 등록
-
-        bossMonster.onDeath += SetGameWon; // BossMonster 사망 시 게임승리 처리를 이벤트 콜백으로 등록
-        bossMonster.onDeath += EndGame; // BossMonster 사망 시 게임오버 처리를 이벤트 콜백으로 등록
-
-        mimicAI.onDeath += IncreaseMimicKillCount; // Mimic 사망 시 mimic 킬 수 증가 처리를 이벤트 콜백으로 등록
+        playerHealth.onDeath += () => EndGame(false); // PlayerHealth 사망 시 게임오버 처리를 이벤트 콜백으로 등록
+        bossMonster.onDeath += () => EndGame(true); // BossMonster 사망 시 게임오버 처리를 이벤트 콜백으로 등록
     }
 }
