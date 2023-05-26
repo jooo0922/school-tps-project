@@ -18,7 +18,7 @@ Shader "Custom/Blob"
         Tags { "RenderType"="Transparent" "Queue"="Transparent" } // 알파 블렌딩 셰이더 적용
 
         CGPROGRAM
-        #pragma surface surf Standard addshadow alpha:fade vertex:vert // addshadow 옵션은 현재 렌더링 결과에 Blob 의 그림자 추가 -> Blob 그림자가 더 자연스럽게 렌더링되도록 함.
+        #pragma surface surf Standard addshadow vertex:vert // addshadow 옵션은 현재 렌더링 결과에 Blob 의 그림자 추가 -> Blob 그림자가 더 자연스럽게 렌더링되도록 함.
 
         // 변수 선언
         fixed4 _BaseColor;
