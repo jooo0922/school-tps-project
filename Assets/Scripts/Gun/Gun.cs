@@ -19,6 +19,7 @@ public class Gun : MonoBehaviour
 
     public ParticleSystem muzzleFlashEffect; // 총구 화염 이펙트 파티클 시스템 컴포넌트
     public ParticleSystem shellEjectEffect; // 탄피 배출 이펙트 파티클 시스템 컴포넌트
+    public ParticleSystem bulletHitEffect; // 탄알 충돌 이펙트 파티클 시스템 컴포넌트
 
     public int ammoRemain; // 남아있는 모든 탄알 수
     public int magAmmo; // 현재 탄창 안에 남아있는 탄알 수
@@ -116,7 +117,7 @@ public class Gun : MonoBehaviour
             hitPosition = firePosition.position + firePosition.forward * fireDistance;
         }
 
-        StartCoroutine(ShotEffect(hitPosition)); // 발사 이펙트 처리 코루틴 메서드 실행
+        StartCoroutine(ShotEffect(hit)); // 발사 이펙트 처리 코루틴 메서드 실행
 
         magAmmo--; // 현재 탄창 탄알 수 감소시킴
         if (magAmmo <= 0)
@@ -126,11 +127,19 @@ public class Gun : MonoBehaviour
     }
 
     // 발사 이펙트 처리하는 코루틴 메서드
-    private IEnumerator ShotEffect(Vector3 hitPoisition)
+    private IEnumerator ShotEffect(RaycastHit hit)
     {
         // 탄알 발사 이펙트 처리를 위한 파티클 시스템 재생
         muzzleFlashEffect.Play();
         shellEjectEffect.Play();
+
+        if (hit.collider)
+        {
+            // 충돌한 collider 가 존재할 경우에만 탄알 충돌 이펙트 처리
+            bulletHitEffect.transform.position = hit.point; // 탄알 충돌 지점으로 파티클 시스템 위치 변경
+            bulletHitEffect.transform.rotation = Quaternion.LookRotation(hit.normal); // 충돌표면 방향벡터(=피격방향)를 바라보도록 쿼터니온 회전값을 반환! -> 파티클 효과 게임오브젝트가 피격방향을 바라보도록 함
+            bulletHitEffect.Play(); // 탄알 충돌 파티클 시스템 재생
+        }
 
         gunAnimator.SetTrigger("Fire");
 
