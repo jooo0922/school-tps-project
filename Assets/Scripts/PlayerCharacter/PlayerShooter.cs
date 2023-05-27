@@ -100,6 +100,6 @@ public class PlayerShooter : MonoBehaviour
 
         // 캐릭터 머리의 lookAt 을 총구 방향을 바라보도록 설정
         playerAnimator.SetLookAtWeight(1.0f);
-        playerAnimator.SetLookAtPosition(gun.firePosition.position);
+        playerAnimator.SetLookAtPosition(gun.fireTransform.position);
     }
 }
