@@ -28,6 +28,7 @@ public class Gun : MonoBehaviour
 
     private AudioSource gunAudioPlayer; // 총 효과음 재생
     private Animator gunAnimator; // 총기 반동 애니메이션 재생
+    private LineRenderer bulletLineRenderer; // 탄알 궤적을 그리는 라인 렌더러 컴포넌트
 
     private float fireDistance = 50f; // 총의 사정거리 > 너무 멀리있는 오브젝트의 레이캐스팅 처리 제한 목적
     private float lastFireTime; // 총을 마지막으로 발사한 시점
@@ -37,7 +38,7 @@ public class Gun : MonoBehaviour
     [SerializeField]
     private Transform m_rightHandMount; // 총의 오른쪽 손잡이
     [SerializeField]
-    private Transform m_firePosition; // 총구 위치
+    private Transform m_fireTransform; // 총구 위치
 
     public Transform leftHandMount
     {
@@ -49,9 +50,9 @@ public class Gun : MonoBehaviour
         get { return m_rightHandMount; }
     }
 
-    public Transform firePosition
+    public Transform fireTransform
     {
-        get { return m_firePosition; }
+        get { return m_fireTransform; }
     }
 
     // 컴포넌트 가져오기
@@ -66,6 +67,10 @@ public class Gun : MonoBehaviour
     {
         gunAudioPlayer = GetComponent<AudioSource>();
         gunAnimator = GetComponent<Animator>();
+        bulletLineRenderer = GetComponent<LineRenderer>();
+
+        bulletLineRenderer.positionCount = 2; // 라인 렌더링에 사용할 점 2개로 초기화
+        bulletLineRenderer.enabled = false; // 컴포넌트 비활성화 처리
     }
 
     // 총 상태 초기화
@@ -97,7 +102,7 @@ public class Gun : MonoBehaviour
         Vector3 hitPosition = Vector3.zero; // 레이캐스팅 충돌 지점 좌표를 저장할 변수 초기화
 
         // 레이캐스트 검사 실행 (레이캐스틴 시작 지점, 레이캐스팅 방향, 레이캐스팅 결과 저장 변수, 레이캐스팅 유효거리)
-        if (Physics.Raycast(firePosition.position, firePosition.forward, out hit, fireDistance))
+        if (Physics.Raycast(fireTransform.position, fireTransform.forward, out hit, fireDistance))
         {
             // 레이가 어떤 물체와 교차했을 때의 처리
             IDamageable target = hit.collider.GetComponent<IDamageable>(); // 교차한 오브젝트들 중에서 IDamageable 을 상속받는 컴포넌트를 갖고 있는 오브젝트 가져오기
@@ -114,10 +119,10 @@ public class Gun : MonoBehaviour
         {
             // 레이가 교체한 물체가 없을 때의 처리
             // 충돌 지점 좌표를 현재 총구위치를 기준으로 총구 방향벡터를 따라 최대 사정거리까지 날아간 지점의 좌표로 계산
-            hitPosition = firePosition.position + firePosition.forward * fireDistance;
+            hitPosition = fireTransform.position + fireTransform.forward * fireDistance;
         }
 
-        StartCoroutine(ShotEffect(hit)); // 발사 이펙트 처리 코루틴 메서드 실행
+        StartCoroutine(ShotEffect(hit, hitPosition)); // 발사 이펙트 처리 코루틴 메서드 실행
 
         magAmmo--; // 현재 탄창 탄알 수 감소시킴
         if (magAmmo <= 0)
@@ -127,7 +132,7 @@ public class Gun : MonoBehaviour
     }
 
     // 발사 이펙트 처리하는 코루틴 메서드
-    private IEnumerator ShotEffect(RaycastHit hit)
+    private IEnumerator ShotEffect(RaycastHit hit, Vector3 hitPosition)
     {
         // 탄알 발사 이펙트 처리를 위한 파티클 시스템 재생
         muzzleFlashEffect.Play();
@@ -144,7 +149,14 @@ public class Gun : MonoBehaviour
         gunAnimator.SetTrigger("Fire");
 
         gunAudioPlayer.PlayOneShot(gunData.fireClip); // 총 발사 오디오 재생 (총 연속 발사 시, 기존 효과음과 자연스럽게 중첩 처리 -> .PlayOnmeShot())
+
+        bulletLineRenderer.SetPosition(0, fireTransform.position); // 라인 렌더러의 시작점 총구 위치로 설정
+        bulletLineRenderer.SetPosition(1, hitPosition); // 라인 렌더러의 끝점은 충돌 위치로 설정
+        bulletLineRenderer.enabled = true; // 라인 렌더러 활성화 > 탄알 궤적 표시
+
         yield return new WaitForSeconds(0.03f);
+
+        bulletLineRenderer.enabled = false; // 대기처리 후 라인 렌더러 비활성화 > 탄알 궤적 제거 
     }
 
     // 재장전 트리거
