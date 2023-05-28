@@ -54,6 +54,7 @@ public class PlayerHealth : LivingEntity
         }
 
         base.OnDamage(damage, hitPoint, hitNormal); // 대미지 적용 처리
+        // TODO: UI 업데이트 처리
     }
 
     // 사망 처리 override
