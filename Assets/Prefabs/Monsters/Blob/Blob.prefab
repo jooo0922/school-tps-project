@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2657242403125824321}
   m_Layer: 0
-  m_Name: Sky Blob
+  m_Name: Blob
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
