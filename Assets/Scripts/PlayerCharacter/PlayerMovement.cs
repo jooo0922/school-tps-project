@@ -11,9 +11,13 @@ public class PlayerMovement : MonoBehaviour
     [Header("Move Speed")]
     public float mountMoveSpeed = 3f;
     public float unmountMoveSpeed = 4f;
+
     [Header("Jump Force")]
     public float mountJumpForce = 4f;
     public float unmountJumpForce = 5f;
+
+    [Header("Effects")]
+    public AudioClip jumpClip; // 점프 효과음
 
     private float _moveSpeed; // 플레이어 이동 속력
     private float _jumpForce; // 플레이어 점프력
@@ -36,6 +40,7 @@ public class PlayerMovement : MonoBehaviour
     private PlayerInput playerInput; // 플레이어 입력 상태 관리 모듈
     private Rigidbody playerRigidBody; // 플레이어 캐릭터 리지드바디 컴포넌트 -> 플레이어 캐릭터의 물리 처리를 고려한 이동 구현
     private Animator playerAnimator; // 플레이어 캐릭터 > VRoid 게임 오브젝트의 애니메이터 컴포넌트
+    private AudioSource playerAudioPlayer; // 오디오 소스 컴포넌트
 
     // 이동 및 점프 상태값 초기화
     private void Awake()
@@ -50,6 +55,7 @@ public class PlayerMovement : MonoBehaviour
         playerInput = GetComponent<PlayerInput>();
         playerRigidBody = GetComponent<Rigidbody>();
         playerAnimator = GetComponent<Animator>(); // 애니메이터 컴포넌트는 플레이어 캐릭터의 자식 게임오브젝트에 추가되어 있으니 거기서 가져온 것!
+        playerAudioPlayer = GetComponent<AudioSource>();
 
         // onMountChange 이벤트 발생 시 호출할 이벤트 리스너 추가 > 이벤트로 클래스 간 의존성 낮춤
         PlayerGunManager playerGunManager = FindObjectOfType<PlayerGunManager>();
@@ -144,6 +150,7 @@ public class PlayerMovement : MonoBehaviour
     {
         isPreparingToJump = false;
         playerRigidBody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse); // y축으로 물리 힘을 가하여 실제 점프 수행 -> ForceMode.Impulse 는 짧은 시간에 큰 힘을 가하는 힘의 모드
+        playerAudioPlayer.PlayOneShot(jumpClip);
     }
 
     // 점프 애니메이션 클립에서 OnLandStart 이벤트 발생 시 착지 상태값 변경
