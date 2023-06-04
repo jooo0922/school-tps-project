@@ -5,6 +5,7 @@ using UnityEngine;
 public class BlobSpawner : MonoBehaviour
 {
     public GameObject blobPrefab; // GPU 인스턴싱에 사용할 blob 프리팹
+    public Transform Sky; // 인스턴스를 추가할 부모 게임 오브젝트
 
     [Range(5, 50)]
     public int instanceCount = 30; // GPU 인스턴스 개수
@@ -32,6 +33,8 @@ public class BlobSpawner : MonoBehaviour
 
             GameObject blob = Instantiate(blobPrefab, position, rotation);
             blob.transform.localScale = scale;
+
+            blob.transform.SetParent(Sky); // Sky 게임 오브젝트에 추가
         }
     }
 
