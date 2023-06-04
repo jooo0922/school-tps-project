@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4073530005947598283}
   - component: {fileID: 5492169625215551971}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Mimic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57,7 +57,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6317067063881621307}
   - component: {fileID: 8109986523112256866}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Mimic Agent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -109,9 +109,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4073530005947598283}
     m_Modifications:
+    - target: {fileID: 1000010159161520, guid: f2232e0f07f9f4940a2c36ae7ba84e01, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 1000012909287652, guid: f2232e0f07f9f4940a2c36ae7ba84e01, type: 3}
       propertyPath: m_Name
       value: BloodSprayEffect
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000012909287652, guid: f2232e0f07f9f4940a2c36ae7ba84e01, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4000013488956786, guid: f2232e0f07f9f4940a2c36ae7ba84e01, type: 3}
       propertyPath: m_RootOrder
@@ -184,6 +192,10 @@ PrefabInstance:
       propertyPath: mimicAgentTransform
       value: 
       objectReference: {fileID: 6317067063881621307}
+    - target: {fileID: 532251535510394373, guid: 3fc537e92bf3d2449b5be72cfd6cb447, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 8186381266061424044, guid: 3fc537e92bf3d2449b5be72cfd6cb447, type: 3}
       propertyPath: hitEffect
       value: 
@@ -195,6 +207,10 @@ PrefabInstance:
     - target: {fileID: 8675915457954794080, guid: 3fc537e92bf3d2449b5be72cfd6cb447, type: 3}
       propertyPath: m_Name
       value: Mimic AI
+      objectReference: {fileID: 0}
+    - target: {fileID: 8675915457954794080, guid: 3fc537e92bf3d2449b5be72cfd6cb447, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8675915457954794082, guid: 3fc537e92bf3d2449b5be72cfd6cb447, type: 3}
       propertyPath: m_RootOrder
@@ -242,11 +258,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8675915457954794083, guid: 3fc537e92bf3d2449b5be72cfd6cb447, type: 3}
       propertyPath: velocity.x
-      value: -0.43468806
+      value: -0.32245103
       objectReference: {fileID: 0}
     - target: {fileID: 8675915457954794083, guid: 3fc537e92bf3d2449b5be72cfd6cb447, type: 3}
       propertyPath: velocity.z
-      value: -0.89684993
+      value: 0.09350573
+      objectReference: {fileID: 0}
+    - target: {fileID: 8675915458194695971, guid: 3fc537e92bf3d2449b5be72cfd6cb447, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

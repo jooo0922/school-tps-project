@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 790037296461593408}
   - component: {fileID: 6468293204675279019}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: slide 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -100,7 +100,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8590311719412109519}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -136,7 +136,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7438312999025552561}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -168,7 +168,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3318382183515916135}
   - component: {fileID: 6550010535903218195}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: trigger 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -258,7 +258,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6051694330118350307}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: hammer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -290,7 +290,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5762795129810079220}
   - component: {fileID: 7628200708886365740}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: mag 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -380,7 +380,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3385651308431804496}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -411,7 +411,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8033278671778067987}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: mag
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -443,7 +443,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2003095869885348296}
   - component: {fileID: 3660928670569336770}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: hammer 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -533,7 +533,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2663601686715520682}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Right Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -568,7 +568,7 @@ GameObject:
   - component: {fileID: 7237250034158127937}
   - component: {fileID: 7864008446934280444}
   - component: {fileID: 3391110520478169511}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Gun Pistol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -856,7 +856,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 980988192033849428}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Fire Position
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -887,7 +887,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9035115748773209265}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: slide
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -920,7 +920,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2419661288805443099}
   - component: {fileID: 1972268981694904097}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: body 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1010,7 +1010,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3626734170016628181}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ejection
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1041,7 +1041,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1880182675488399338}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1072,7 +1072,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6914145153766034647}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Pistol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1110,7 +1110,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 866246341039809831}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1142,7 +1142,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3096323306612182831}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Left Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1175,6 +1175,10 @@ PrefabInstance:
     - target: {fileID: 1000010254994808, guid: 3cb7276e20a49499cb40c3ddef3baa55, type: 3}
       propertyPath: m_Name
       value: MuzzleFlashEffect
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000010254994808, guid: 3cb7276e20a49499cb40c3ddef3baa55, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4000011227296186, guid: 3cb7276e20a49499cb40c3ddef3baa55, type: 3}
       propertyPath: m_RootOrder
@@ -1287,9 +1291,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8393078438941730692, guid: c89a91c11dceb462fa9775439c281385, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8393259639667388248, guid: c89a91c11dceb462fa9775439c281385, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 8393566196926141606, guid: c89a91c11dceb462fa9775439c281385, type: 3}
       propertyPath: m_Name
       value: BulletHitEffect
+      objectReference: {fileID: 0}
+    - target: {fileID: 8393566196926141606, guid: c89a91c11dceb462fa9775439c281385, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1317,6 +1333,14 @@ PrefabInstance:
     - target: {fileID: 1000013947318026, guid: 7d4a6f7c970cb45a9bc8e44617b55084, type: 3}
       propertyPath: m_Name
       value: ShellEjectEffect
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000013947318026, guid: 7d4a6f7c970cb45a9bc8e44617b55084, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000014084508392, guid: 7d4a6f7c970cb45a9bc8e44617b55084, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4000011175361746, guid: 7d4a6f7c970cb45a9bc8e44617b55084, type: 3}
       propertyPath: m_RootOrder
