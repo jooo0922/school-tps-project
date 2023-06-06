@@ -42,6 +42,7 @@ public class PlayerHealth : LivingEntity
     public override void RestoreHealth(float newHealth)
     {
         base.RestoreHealth(newHealth);
+        UIManager.instance.UpdatePlayerHealth(health, startingHealth); // 플레이어 체력 UI 업데이트
     }
 
     // 공격받았을 때 처리 override
@@ -54,7 +55,7 @@ public class PlayerHealth : LivingEntity
         }
 
         base.OnDamage(damage, hitPoint, hitNormal); // 대미지 적용 처리
-        // TODO: UI 업데이트 처리
+        UIManager.instance.UpdatePlayerHealth(health, startingHealth); // 플레이어 체력 UI 업데이트
     }
 
     // 사망 처리 override

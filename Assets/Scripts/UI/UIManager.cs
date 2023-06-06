@@ -46,4 +46,11 @@ public class UIManager : MonoBehaviour
     {
         killsScoreText.text = kills.ToString();
     }
+
+    // 플레이어 체력 UI 업데이트
+    public void UpdatePlayerHealth(float currentHealth, float startingHealth)
+    {
+        playerHPText.text = currentHealth + " / " + startingHealth;
+        playerHealthSlider.value = currentHealth / startingHealth;
+    }
 }
