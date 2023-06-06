@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
     public void IncreaseMimicKillCount()
     {
         mimicKillCount++;
-        // TODO: UI 업데이트 처리
+        UIManager.instance.UpdateKillsScoreText(mimicKillCount); // 킬 수 UI 업데이트
     }
 
     // 게임오버 처리

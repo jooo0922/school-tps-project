@@ -39,5 +39,11 @@ public class UIManager : MonoBehaviour
     public Slider reloadSlider; // 재장전 대기 슬라이더
 
     [Header("UI Object Reference")]
-    public GameObject bossHealthUI; // 보스몬스터 공격 시 활성화할 체력 UI 
+    public GameObject bossHealthUI; // 보스몬스터 공격 시 활성화할 체력 UI
+
+    // 킬 수 UI 업데이트
+    public void UpdateKillsScoreText(int kills)
+    {
+        killsScoreText.text = kills.ToString();
+    }
 }
