@@ -34,7 +34,7 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI timeText; // 시간 표시 텍스트
 
     [Header("Slider Bar UI")]
-    public Slider playerHealthSlider; // 플레이어 체력 슬라이더
+    public Slider playerHealthSlider; // 플레이어 체력 슬라이더ㄴㄴㄴㄴㄴ
     public Slider bossHealthSlider; // 보스몬스터 체력 슬라이더
     public Slider reloadSlider; // 재장전 대기 슬라이더
 
@@ -52,5 +52,11 @@ public class UIManager : MonoBehaviour
     {
         playerHPText.text = currentHealth + " / " + startingHealth;
         playerHealthSlider.value = currentHealth / startingHealth;
+    }
+
+    // 시간 UI 업데이트
+    public void UpdateTimeText(int min, int sec)
+    {
+        timeText.text = min + ":" + sec.ToString("00"); // 초 단위 시간값은 두 자릿수로 표시
     }
 }

@@ -27,6 +27,9 @@ public class GameManager : MonoBehaviour
     public bool isGameWon { get; private set; } // 게임 승패 자동구현 프로퍼티
     public int mimicKillCount { get; private set; } // Mimic 킬 수 자동구현 프로퍼티
 
+    private float elapsedTime = 0f; // 경과시간 (초 단위)
+    private int prevSec = -1; // 이전 초 단위 시간값
+
     // 몬스터 킬 점수 추가
     public void IncreaseMimicKillCount()
     {
@@ -58,5 +61,24 @@ public class GameManager : MonoBehaviour
 
         playerHealth.onDeath += () => EndGame(false); // PlayerHealth 사망 시 게임오버 처리를 이벤트 콜백으로 등록
         bossMonster.onDeath += () => EndGame(true); // BossMonster 사망 시 게임오버 처리를 이벤트 콜백으로 등록
+    }
+
+    private void Update()
+    {
+        UpdateTime();
+    }
+
+    private void UpdateTime()
+    {
+        elapsedTime += Time.deltaTime;
+
+        int min = Mathf.FloorToInt(elapsedTime / 60f); // 분 단위 시간값 계산 (소수점 버림)
+        int sec = Mathf.FloorToInt(elapsedTime % 60f); // 초 단위 시간값 계산 (소수점 버림)
+
+        if (sec != prevSec)
+        {
+            UIManager.instance.UpdateTimeText(min, sec); // 시간 UI 업데이트
+            prevSec = sec; // 이전 초 단위 시간값 갱신
+        }
     }
 }
