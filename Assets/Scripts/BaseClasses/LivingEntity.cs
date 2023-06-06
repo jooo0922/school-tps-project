@@ -20,11 +20,14 @@ public class LivingEntity : MonoBehaviour, IDamageable
     // 대미지 입었을 때의 처리
     public virtual void OnDamage(float damage, Vector3 hitPoint, Vector3 hitNormal)
     {
-        health -= damage; // 전달받은 damage 만큼 체력을 감소시킴
-
-        if (health <= 0 && !dead)
+        if (!dead)
         {
-            Die(); // 체력이 0보다 떨어지면 사망 처리 메서드 호출
+            health -= damage; // 전달받은 damage 만큼 체력을 감소시킴
+
+            if (health <= 0)
+            {
+                Die(); // 체력이 0보다 떨어지면 사망 처리 메서드 호출
+            }
         }
     }
 
@@ -36,7 +39,7 @@ public class LivingEntity : MonoBehaviour, IDamageable
             return; // 이미 사망한 상태라면 체력 회복 생략
         }
 
-        health += newHealth; // 체력 증가
+        health = Mathf.Min(health + newHealth, startingHealth); // 체력 증가. 시작 체력보다 커지면 시작 체력으로 값을 제한
     }
 
     // 사망 처리
