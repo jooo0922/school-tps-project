@@ -34,7 +34,7 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI timeText; // 시간 표시 텍스트
 
     [Header("Slider Bar UI")]
-    public Slider playerHealthSlider; // 플레이어 체력 슬라이더ㄴㄴㄴㄴㄴ
+    public Slider playerHealthSlider; // 플레이어 체력 슬라이더
     public Slider bossHealthSlider; // 보스몬스터 체력 슬라이더
     public Slider reloadSlider; // 재장전 대기 슬라이더
 
