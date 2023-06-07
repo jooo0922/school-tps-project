@@ -59,4 +59,10 @@ public class UIManager : MonoBehaviour
     {
         timeText.text = min + ":" + sec.ToString("00"); // 초 단위 시간값은 두 자릿수로 표시
     }
+
+    // 현재 탄창 내 탄알 UI 업데이트
+    public void UpdateAmmoText(int magAmmo, int magCapacity)
+    {
+        ammoText.text = magAmmo + "/" + magCapacity;
+    }
 }
