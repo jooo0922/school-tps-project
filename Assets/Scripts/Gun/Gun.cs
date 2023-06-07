@@ -89,6 +89,9 @@ public class Gun : MonoBehaviour
     public void AddAmmoRemain(int ammo)
     {
         ammoRemain += ammo;
+
+        UIManager.instance.UpdateGunAmmoText(gunName, ammoRemain); // 현재 총 탄알 UI 업데이트
+        UIManager.instance.UpdateTotalAmmoText(); // 전체 탄알 UI 업데이트
     }
 
     // 총 발사 트리거
@@ -203,6 +206,8 @@ public class Gun : MonoBehaviour
         ammoRemain -= ammoToFill; // 채운 탄알 수만큼 남아있는 탄알 수를 감소시킴
 
         UIManager.instance.UpdateAmmoText(magAmmo, magCapacity); // 탄창 UI 업데이트
+        UIManager.instance.UpdateGunAmmoText(gunName, ammoRemain); // 현재 총 탄알 UI 업데이트
+        UIManager.instance.UpdateTotalAmmoText(); // 전체 탄알 UI 업데이트
 
         state = State.Ready; // 재장전 처리가 끝났으면, 현재 총의 상태를 발사 준비 상태로 전환
     }
