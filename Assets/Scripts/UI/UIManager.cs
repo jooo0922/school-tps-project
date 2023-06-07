@@ -56,14 +56,42 @@ public class UIManager : MonoBehaviour
 
     private Dictionary<string, TextMeshProUGUI> gunAmmoUIDictionary = new Dictionary<string, TextMeshProUGUI>();
 
+    [Serializable]
+    public struct GunButtonBox
+    {
+        public GameObject enableBox;
+        public GameObject disableBox;
+    }
+
+    [Serializable]
+    public struct GunButtonUI
+    {
+        public string gunName;
+        public GunButtonBox gunButtonBox;
+    }
+
+    [Header("Gun Buttons")]
+    public List<GunButtonUI> gunButtonUIList; // 총기 종류별 버튼 리스트
+
+    private Dictionary<string, GunButtonBox> gunButtonUIDictionary = new Dictionary<string, GunButtonBox>();
+
     private void Start()
     {
-        // 인스펙터 창에서 할당받은 탄알 수 텍스트 리스트를 변환해서 딕셔너리 타입 변수로 초기화
+        // 인스펙터 창에서 할당받은 탄알 수 텍스트 리스트를 변환해서 딕셔너리 타입 멤버변수 초기화
         foreach (GunAmmoUI gunAmmoUI in gunAmmoUIList)
         {
             if (!gunAmmoUIDictionary.ContainsKey(gunAmmoUI.gunName))
             {
                 gunAmmoUIDictionary.Add(gunAmmoUI.gunName, gunAmmoUI.gunAmmoText); // 해당 gunName 이 딕셔너리에 존재하지 않으면 새롭게 추가
+            }
+        }
+
+        // 인스펙터 창에서 할당받은 총기 종류별 버튼 리스트를 변환해서 딕셔너리 타입 멤버변수 초기화
+        foreach (GunButtonUI gunButtonUI in gunButtonUIList)
+        {
+            if (!gunButtonUIDictionary.ContainsKey(gunButtonUI.gunName))
+            {
+                gunButtonUIDictionary.Add(gunButtonUI.gunName, gunButtonUI.gunButtonBox); // 해당 gunName 이 딕셔너리에 존재하지 않으면 새롭게 추가
             }
         }
     }
@@ -121,5 +149,19 @@ public class UIManager : MonoBehaviour
         }
 
         totalAmmoText.text = totalAmmo.ToString();
+    }
+
+    // 총기 버튼 활성화 UI 업데이트
+    public void UpdateGunButtonBox(string gunName)
+    {
+        foreach (KeyValuePair<string, GunButtonBox> gunButtonUI in gunButtonUIDictionary)
+        {
+            string currentGun = gunButtonUI.Key;
+            GunButtonBox gunButtonBox = gunButtonUI.Value;
+
+            bool isActive = currentGun == gunName;
+            gunButtonBox.enableBox.SetActive(isActive);
+            gunButtonBox.disableBox.SetActive(!isActive);
+        }
     }
 }
