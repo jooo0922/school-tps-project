@@ -77,6 +77,8 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
+        bossHealthUI.SetActive(false); // 인스펙터 창에서 비활성화 체크 후, 코드에서도 확실하게 비활성화.
+
         // 인스펙터 창에서 할당받은 탄알 수 텍스트 리스트를 변환해서 딕셔너리 타입 멤버변수 초기화
         foreach (GunAmmoUI gunAmmoUI in gunAmmoUIList)
         {
@@ -107,6 +109,24 @@ public class UIManager : MonoBehaviour
     {
         playerHPText.text = currentHealth + " / " + startingHealth;
         playerHealthSlider.value = currentHealth / startingHealth;
+    }
+
+    // 보스몬스터 체력 UI 업데이트
+    public void UpdateBossHealth(float currentHealth, float startingHealth)
+    {
+        bossHealthSlider.value = currentHealth / startingHealth;
+    }
+
+    // 보스몬스터 첫 공격 시, 체력 UI 보여주기
+    public void ShowBossHealth()
+    {
+        bossHealthUI.SetActive(true);
+    }
+
+    // 보스몬스터 사망 시, 체력 UI 숨기기
+    public void HideBossHealth()
+    {
+        bossHealthUI.SetActive(false);
     }
 
     // 시간 UI 업데이트
