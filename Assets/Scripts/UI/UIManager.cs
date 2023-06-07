@@ -27,7 +27,7 @@ public class UIManager : MonoBehaviour
     private static UIManager m_instance; // 싱글톤 인스턴스가 할당된 정적 멤버변수
 
     [Header("Text UI")]
-    public TextMeshProUGUI ammoText; // 현재 탄창 내 탄알 수 텍스트
+    public TextMeshProUGUI magAmmoText; // 현재 탄창 내 탄알 수 텍스트
     public TextMeshProUGUI totalAmmoText; // 전체 탄알 수 텍스트
     public TextMeshProUGUI playerHPText; // 플레이어 체력 텍스트
     public TextMeshProUGUI killsScoreText; // 킬 수 표시 텍스트
@@ -116,9 +116,9 @@ public class UIManager : MonoBehaviour
     }
 
     // 현재 탄창 내 탄알 UI 업데이트
-    public void UpdateAmmoText(int magAmmo, int magCapacity)
+    public void UpdateMagAmmoText(int magAmmo, int magCapacity)
     {
-        ammoText.text = magAmmo + " / " + magCapacity;
+        magAmmoText.text = magAmmo + " / " + magCapacity;
     }
 
     // 총기 종류별 탄알 UI 업데이트

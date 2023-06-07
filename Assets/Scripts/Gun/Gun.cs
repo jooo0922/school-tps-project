@@ -137,7 +137,7 @@ public class Gun : MonoBehaviour
 
         magAmmo--; // 현재 탄창 탄알 수 감소시킴
 
-        UIManager.instance.UpdateAmmoText(magAmmo, magCapacity); // 탄창 UI 업데이트
+        UIManager.instance.UpdateMagAmmoText(magAmmo, magCapacity); // 탄창 UI 업데이트
 
         if (magAmmo <= 0)
         {
@@ -214,7 +214,7 @@ public class Gun : MonoBehaviour
         magAmmo += ammoToFill; // 탄창을 채움
         ammoRemain -= ammoToFill; // 채운 탄알 수만큼 남아있는 탄알 수를 감소시킴
 
-        UIManager.instance.UpdateAmmoText(magAmmo, magCapacity); // 탄창 UI 업데이트
+        UIManager.instance.UpdateMagAmmoText(magAmmo, magCapacity); // 탄창 UI 업데이트
         UIManager.instance.UpdateGunAmmoText(gunName, ammoRemain); // 현재 총 탄알 UI 업데이트
         UIManager.instance.UpdateTotalAmmoText(); // 전체 탄알 UI 업데이트
 

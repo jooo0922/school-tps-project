@@ -103,12 +103,12 @@ public class PlayerGunManager : MonoBehaviour
 
             if (isMounted)
             {
-                UIManager.instance.UpdateAmmoText(currentGun.magAmmo, currentGun.magCapacity); // 무기 착용 시, 현재 무기 탄창 UI 업데이트
+                UIManager.instance.UpdateMagAmmoText(currentGun.magAmmo, currentGun.magCapacity); // 무기 착용 시, 현재 무기 탄창 UI 업데이트
                 UIManager.instance.UpdateGunButtonBox(currentGun.gunName); // 총기 버튼 활성화 UI 업데이트
             }
             else
             {
-                UIManager.instance.UpdateAmmoText(0, 0); // 무기 미착용 시, 탄창 UI 초기화
+                UIManager.instance.UpdateMagAmmoText(0, 0); // 무기 미착용 시, 탄창 UI 초기화
                 UIManager.instance.UpdateGunButtonBox(null); // 총기 버튼 활성화 UI 초기화
             }
         }
@@ -123,7 +123,7 @@ public class PlayerGunManager : MonoBehaviour
             currentGun.gameObject.SetActive(true); // 변경된 무기 활성화
             playerAudioSource.PlayOneShot(gunSwapClip); // 무기 교체 오디오 재생
 
-            UIManager.instance.UpdateAmmoText(currentGun.magAmmo, currentGun.magCapacity); // 변경된 무기의 탄창 UI 업데이트
+            UIManager.instance.UpdateMagAmmoText(currentGun.magAmmo, currentGun.magCapacity); // 변경된 무기의 탄창 UI 업데이트
             UIManager.instance.UpdateGunButtonBox(currentGun.gunName); // 총기 버튼 활성화 UI 업데이트
         }
     }
