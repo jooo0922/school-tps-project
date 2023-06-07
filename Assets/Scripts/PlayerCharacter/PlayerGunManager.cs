@@ -29,7 +29,7 @@ public class PlayerGunManager : MonoBehaviour
         Gun foundGun = gunPool.Find(gun => gun.gunName == gunName);
         if (foundGun != null)
         {
-            foundGun.ammoRemain += ammo;
+            foundGun.AddAmmoRemain(ammo);
         }
     }
 

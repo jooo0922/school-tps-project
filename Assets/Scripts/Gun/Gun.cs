@@ -15,16 +15,18 @@ public class Gun : MonoBehaviour
 
     public State state { get; private set; } // 총의 상태값을 자동구현 프로퍼티로 접근 및 쓰기
 
-    public GunData gunData; // 총의 현재 데이터
-
     public ParticleSystem muzzleFlashEffect; // 총구 화염 이펙트 파티클 시스템 컴포넌트
     public ParticleSystem shellEjectEffect; // 탄피 배출 이펙트 파티클 시스템 컴포넌트
     public ParticleSystem bulletHitEffect; // 탄알 충돌 이펙트 파티클 시스템 컴포넌트
 
-    public int ammoRemain; // 남아있는 모든 탄알 수
-    public int magAmmo; // 현재 탄창 안에 남아있는 탄알 수
+    public int ammoRemain { get; private set; } // 남아있는 모든 탄알 수 프로퍼티
+    public int magAmmo { get; private set; } // 현재 탄창 안에 남아있는 탄알 수 프로퍼티
+    public int magCapacity { get; private set; } // 탄창 용량 프로퍼티
 
-    public string gunName; // 총기 식별자
+    public string gunName { get; private set; } // 총기 식별자 프로퍼티
+
+    [SerializeField]
+    private GunData gunData; // 총의 현재 데이터
 
     private AudioSource gunAudioPlayer; // 총 효과음 재생
     private Animator gunAnimator; // 총기 반동 애니메이션 재생
@@ -78,9 +80,15 @@ public class Gun : MonoBehaviour
     {
         ammoRemain = gunData.startAmmoRemain; // 전체 탄알 수 초기화
         magAmmo = gunData.magCapacity; // 현재 탄창 탄알 수 초기화
+        magCapacity = gunData.magCapacity; // 탄창 용량 수 초기화
         gunName = gunData.gunName; // 총기 식별자 초기화
         state = State.Ready; // 현재 총 상태 초기화
         lastFireTime = 0; // 총을 마지막으로 발사한 시점 초기화
+    }
+
+    public void AddAmmoRemain(int ammo)
+    {
+        ammoRemain += ammo;
     }
 
     // 총 발사 트리거
