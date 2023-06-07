@@ -193,7 +193,16 @@ public class Gun : MonoBehaviour
         state = State.Reloading; // 현재 총 상태를 재장전 상태로 전환
         gunAudioPlayer.PlayOneShot(gunData.reloadClip); // 이전 오디오를 중첩시켜서 자연스럽게 재생시킴
 
-        yield return new WaitForSeconds(gunData.reloadTime); // 재장전 소요 시간만큼 아래 로직처리를 지연
+        float elapsedTime = 0f; // 재장전 경과 시간 변수 초기화
+
+        while (elapsedTime < gunData.reloadTime)
+        {
+            elapsedTime += Time.deltaTime; // 경과 시간 업데이트
+            float progress = Mathf.Clamp01(elapsedTime / gunData.reloadTime); // 현재 재장전 진행도 계산 (0 ~ 1 사이 값)
+            UIManager.instance.UpdateReloadSlider(progress); // 재장전 진행도 업데이트
+
+            yield return null;
+        }
 
         int ammoToFill = gunData.magCapacity - magAmmo; // 채워야 할 탄알 수 계산
 
