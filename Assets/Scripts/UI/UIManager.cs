@@ -63,6 +63,6 @@ public class UIManager : MonoBehaviour
     // 현재 탄창 내 탄알 UI 업데이트
     public void UpdateAmmoText(int magAmmo, int magCapacity)
     {
-        ammoText.text = magAmmo + "/" + magCapacity;
+        ammoText.text = magAmmo + " / " + magCapacity;
     }
 }
