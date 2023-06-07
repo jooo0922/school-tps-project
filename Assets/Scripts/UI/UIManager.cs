@@ -164,4 +164,10 @@ public class UIManager : MonoBehaviour
             gunButtonBox.disableBox.SetActive(!isActive);
         }
     }
+
+    // 재장전 대기 시간 UI 업데이트
+    public void UpdateReloadSlider(float progress)
+    {
+        reloadSlider.value = progress; // Slider의 value를 재장전 진행도에 맞게 업데이트 (0 ~ 1 사이)
+    }
 }
