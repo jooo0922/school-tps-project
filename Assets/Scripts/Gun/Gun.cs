@@ -133,6 +133,9 @@ public class Gun : MonoBehaviour
         StartCoroutine(ShotEffect(hit, hitPosition)); // 발사 이펙트 처리 코루틴 메서드 실행
 
         magAmmo--; // 현재 탄창 탄알 수 감소시킴
+
+        UIManager.instance.UpdateAmmoText(magAmmo, magCapacity); // 탄창 UI 업데이트
+
         if (magAmmo <= 0)
         {
             state = State.Empty; // 탄창에 남은 탄알 수가 0보다 작다? > 탄창이 빈 상태로 상태 변경
@@ -198,6 +201,8 @@ public class Gun : MonoBehaviour
 
         magAmmo += ammoToFill; // 탄창을 채움
         ammoRemain -= ammoToFill; // 채운 탄알 수만큼 남아있는 탄알 수를 감소시킴
+
+        UIManager.instance.UpdateAmmoText(magAmmo, magCapacity); // 탄창 UI 업데이트
 
         state = State.Ready; // 재장전 처리가 끝났으면, 현재 총의 상태를 발사 준비 상태로 전환
     }
