@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI; // UI 관련 코드
 using MimicSpace;
 
 // Mimic AI 시스템 구현
@@ -24,8 +25,12 @@ public class MimicAI : LivingEntity
     [Header("Nav Agent")]
     public NavMeshAgent navMeshAgent; // 경로 계산 AI 에이전트 컴포넌트 (NavAgent 자식 게임 오브젝트에서 가져옴 -> NavMeshAgent 를 Mimic 게임 오브젝트에 추가하면 transform 계산 시 충돌 발생)
 
+    [Header("UI")]
+    public GameObject mimicHealthBarCanvas;
+    public Slider mimicHealthSlider;
+
     private LivingEntity targetEntity; // 추적 대상 저장 변수
-    private AudioSource mimicAudioPlayer; // 오디오 소스 컴포넌트
+    private AudioSource mimicAudioPlayer; // 오디오 소스 컴포넌트dw
     private Rigidbody mimicRigidBody; // 리지드바디 컴포넌트
     private SphereCollider mimicCollider; // 구체 콜라이더 컴포넌트
     private MeshRenderer mimicRenderer; // sphere 게임 오브젝트 렌더러 
@@ -158,6 +163,7 @@ public class MimicAI : LivingEntity
         }
 
         base.OnDamage(damage, hitPoint, hitNormal); // 대미지 처리 실행
+        UpdateMimicHealth(health, startingHealth); // Mimic 체력 UI 업데이트
     }
 
     // 사망 시 처리 override
@@ -178,6 +184,8 @@ public class MimicAI : LivingEntity
         mimicRigidBody.detectCollisions = false; // 충돌감지 비활성화
         mimic.enabled = false;
         movement.enabled = false;
+
+        mimicHealthBarCanvas.SetActive(false); // Health Bar UI 비활성화
 
         mimicAudioPlayer.PlayOneShot(deathSound); // 사망 오디오 재생
     }
@@ -201,5 +209,10 @@ public class MimicAI : LivingEntity
                 attackTarget.OnDamage(damage, hitPoint, hitNormal); // 공격 실행
             }
         }
+    }
+
+    private void UpdateMimicHealth(float currentHealth, float startingHealth)
+    {
+        mimicHealthSlider.value = currentHealth / startingHealth;
     }
 }
