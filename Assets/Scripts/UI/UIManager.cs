@@ -41,6 +41,14 @@ public class UIManager : MonoBehaviour
     [Header("UI Object Reference")]
     public GameObject bossHealthUI; // 보스몬스터 공격 시 활성화할 체력 UI
 
+    [Header("Game Result UI")]
+    public GameObject gameResultUI; // 게임 결과 UI 최상위 게임 오브젝트
+    public GameObject successTitleUI; // 미션성공 타이틀
+    public GameObject failTitleUI; // 미션실패 타이틀
+    public TextMeshProUGUI resultPlayTimeText; // 게임결과 플레이 시간 텍스트
+    public TextMeshProUGUI resultKillsText; // 게임결과 킬 수 텍스트
+    public TextMeshProUGUI resultTotalScoreText; // 게임결과 최종 점수 텍스트
+
     // GunAmmoText 게임 오브젝트 레퍼런스를 담기 위해, 해당 데이터를 구조체 형태로 선언
     // 구조체 타입을 사용한 멤버변수를 인스펙터 창에 표시하려면, 해당 구조체를 '직렬화' 할 수 있어야 함. -> [Serializable] 선언
     // 직렬화 : 객체나 데이터를 바이트로 변환하여 저장 및 전송 가능한 형식으로 변환하는 과정.
@@ -189,5 +197,28 @@ public class UIManager : MonoBehaviour
     public void UpdateReloadSlider(float progress)
     {
         reloadSlider.value = progress; // Slider의 value를 재장전 진행도에 맞게 업데이트 (0 ~ 1 사이)
+    }
+
+    // Game Result UI 업데이트
+    public void UpdateGameResultUI(bool isGameWon, int totalScore)
+    {
+        // 게임 승패에 따라 활성화할 타이틀 지정
+        if (isGameWon)
+        {
+            successTitleUI.SetActive(true);
+            failTitleUI.SetActive(false);
+        }
+        else
+        {
+            successTitleUI.SetActive(false);
+            failTitleUI.SetActive(true);
+        }
+
+        // 기존의 timeText와 killsScoreText의 텍스트 값을 가져와서 결과 UI에 표시
+        resultPlayTimeText.text = timeText.text;
+        resultKillsText.text = killsScoreText.text;
+        resultTotalScoreText.text = totalScore.ToString(); // 최종 점수를 문자열로 변환하여 업데이트
+
+        gameResultUI.SetActive(true);
     }
 }
