@@ -30,6 +30,10 @@ public class GameManager : MonoBehaviour
     private float elapsedTime = 0f; // 경과시간 (초 단위)
     private int prevSec = -1; // 이전 초 단위 시간값
 
+    private float playTimeWeight = 0.1f; // 플레이 시간 가중치
+    private float killsWeight = 0.5f; // 킬 수 가중치
+    private float successBonus = 100.0f; // 승리 보너스 점수
+
     // 몬스터 킬 점수 추가
     public void IncreaseMimicKillCount()
     {
@@ -42,7 +46,24 @@ public class GameManager : MonoBehaviour
     {
         isGameover = true;
         isGameWon = won; // 게임 승패 여부 상태값 업데이트
-        // TODO: UI 업데이트 처리
+
+        int totalScore = CalculateTotalScore(isGameWon, mimicKillCount, elapsedTime); // 최종 점수 계산
+        UIManager.instance.UpdateGameResultUI(isGameWon, totalScore); // Game Result UI 업데이트
+    }
+
+    // 최종점수 계산
+    private int CalculateTotalScore(bool isWon, int kills, float playTime)
+    {
+        float score = kills * killsWeight - playTime * playTimeWeight; // 플레이 시간과 킬 수에 가중치를 곱해서 합산
+
+        if (isWon)
+        {
+            score += successBonus; // 게임 승리 시, 승리 보너스 추가
+        }
+
+        int totalScore = Mathf.RoundToInt(Mathf.Max(0f, score)); // 최종 점수가 0보다 작아지지 않도록 최솟값을 설정한 후, 정수형으로 변환
+
+        return totalScore;
     }
 
     private void Awake()
