@@ -9,7 +9,7 @@ Shader "Custom/Blob"
         _NoiseTex ("NoiseTex", 2D) = "white" {}
         _Smoothness("Smoothness", Range(0,1)) = 0.819
         _Amplitude("Amplitude", Range(0.5,1.5)) = 1
-        _Frequency("Frequency", Range(0.1,1)) = 0.35
+        _Frequency("Frequency", Range(0,1)) = 0.35
         _Radius("Radius", Range(0.1,2)) = 0.814
         _RimPower("RimPower", Range(0.1, 10)) = 1.2
     }
