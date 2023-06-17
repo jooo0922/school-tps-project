@@ -24,9 +24,9 @@ public class BlobFracture : MonoBehaviour
 
         fractureRigidbody = GetComponentsInChildren<Rigidbody>();
 
-        foreach(Rigidbody rigidbody in fractureRigidbody)
+        foreach (Rigidbody rigidbody in fractureRigidbody)
         {
-            rigidbody.constraints = RigidbodyConstraints.FreezeAll; // 각 리지드바디의 모든 Constraints 를 잠가버림. (인스펙터 창에서 체크했지만 스크립트에서 한 번 더 확실하게 잠가준 것!)
+            rigidbody.constraints = RigidbodyConstraints.FreezeAll; // 각 리지드바디의 모든 Constraints 를 잠가버림. (인스펙터 창에서 체크해놓으면, Explode 에서 제대로 해제가 제대로 안됨. 따라서 스크립트로 제어!)
         }
 
         bossMonster = GetComponent<BossMonster>();
