@@ -2,7 +2,7 @@ Shader "Hidden/Blur"
 {
     Properties
     {
-        _Radius("Radius", Range(1, 255)) = 1
+        _Radius("Radius", Range(0, 255)) = 0
         _Color("Color", Color) = (1,1,1,1)
     }
  
