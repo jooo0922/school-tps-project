@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement; // 씬 관리자 코드
 using UnityEngine.UI; // UI 관련 코드
 using TMPro; // TextMeshPro (TMP) 관련 코드
+using UI.Parameters; // UI 로직 파라미터 관련
 
 // UI 요소 즉시 접근 및 변경 관리 모듈
 public class UIManager : MonoBehaviour
@@ -40,18 +41,8 @@ public class UIManager : MonoBehaviour
 
     [Header("UI Object Reference")]
     public GameObject bossHealthUI; // 보스몬스터 공격 시 활성화할 체력 UI
-
-    [Header("Game Result UI")]
     public GameObject gameResultUI; // 게임 결과 UI 최상위 게임 오브젝트
-    public GameObject successTitleUI; // 미션성공 타이틀
-    public GameObject failTitleUI; // 미션실패 타이틀
-    public TextMeshProUGUI resultPlayTimeText; // 게임결과 플레이 시간 텍스트
-    public TextMeshProUGUI resultKillsText; // 게임결과 킬 수 텍스트
-    public TextMeshProUGUI resultTotalScoreText; // 게임결과 최종 점수 텍스트
 
-    // GunAmmoText 게임 오브젝트 레퍼런스를 담기 위해, 해당 데이터를 구조체 형태로 선언
-    // 구조체 타입을 사용한 멤버변수를 인스펙터 창에 표시하려면, 해당 구조체를 '직렬화' 할 수 있어야 함. -> [Serializable] 선언
-    // 직렬화 : 객체나 데이터를 바이트로 변환하여 저장 및 전송 가능한 형식으로 변환하는 과정.
     [Serializable]
     public struct GunAmmoUI
     {
@@ -83,28 +74,7 @@ public class UIManager : MonoBehaviour
 
     private Dictionary<string, GunButtonBox> gunButtonUIDictionary = new Dictionary<string, GunButtonBox>();
 
-    private void Start()
-    {
-        bossHealthUI.SetActive(false); // 인스펙터 창에서 비활성화 체크 후, 코드에서도 확실하게 비활성화.
-
-        // 인스펙터 창에서 할당받은 탄알 수 텍스트 리스트를 변환해서 딕셔너리 타입 멤버변수 초기화
-        foreach (GunAmmoUI gunAmmoUI in gunAmmoUIList)
-        {
-            if (!gunAmmoUIDictionary.ContainsKey(gunAmmoUI.gunName))
-            {
-                gunAmmoUIDictionary.Add(gunAmmoUI.gunName, gunAmmoUI.gunAmmoText); // 해당 gunName 이 딕셔너리에 존재하지 않으면 새롭게 추가
-            }
-        }
-
-        // 인스펙터 창에서 할당받은 총기 종류별 버튼 리스트를 변환해서 딕셔너리 타입 멤버변수 초기화
-        foreach (GunButtonUI gunButtonUI in gunButtonUIList)
-        {
-            if (!gunButtonUIDictionary.ContainsKey(gunButtonUI.gunName))
-            {
-                gunButtonUIDictionary.Add(gunButtonUI.gunName, gunButtonUI.gunButtonBox); // 해당 gunName 이 딕셔너리에 존재하지 않으면 새롭게 추가
-            }
-        }
-    }
+    public event Action<GameResult> OnGameResultUpdate; // ResultUI 모듈과의 결합도를 낮추기 위한 델리게이트
 
     // 킬 수 UI 업데이트
     public void UpdateKillsScoreText(int kills)
@@ -199,26 +169,41 @@ public class UIManager : MonoBehaviour
         reloadSlider.value = progress; // Slider의 value를 재장전 진행도에 맞게 업데이트 (0 ~ 1 사이)
     }
 
-    // Game Result UI 업데이트
+    //// Game Result UI 업데이트
     public void UpdateGameResultUI(bool isGameWon, int totalScore)
     {
-        // 게임 승패에 따라 활성화할 타이틀 지정
-        if (isGameWon)
+        gameResultUI.SetActive(true); // 게임결과 UI 활성화 > ResultUI 스크립트가 적절한 초기화 작업 수행토록 함.
+
+        // GameResult 파라미터 구조체 생성
+        GameResult gameResult;
+        gameResult.isGameWon = isGameWon;
+        gameResult.totalScore = totalScore;
+        gameResult.timeText = timeText.text;
+        gameResult.killsText = killsScoreText.text;
+
+        OnGameResultUpdate(gameResult); // 파라미터 구조체를 전달해서 델리게이트 실행
+    }
+
+    private void Start()
+    {
+        bossHealthUI.SetActive(false); // 인스펙터 창에서 비활성화 체크 후, 코드에서도 확실하게 비활성화.
+
+        // 인스펙터 창에서 할당받은 탄알 수 텍스트 리스트를 변환해서 딕셔너리 타입 멤버변수 초기화
+        foreach (GunAmmoUI gunAmmoUI in gunAmmoUIList)
         {
-            successTitleUI.SetActive(true);
-            failTitleUI.SetActive(false);
-        }
-        else
-        {
-            successTitleUI.SetActive(false);
-            failTitleUI.SetActive(true);
+            if (!gunAmmoUIDictionary.ContainsKey(gunAmmoUI.gunName))
+            {
+                gunAmmoUIDictionary.Add(gunAmmoUI.gunName, gunAmmoUI.gunAmmoText); // 해당 gunName 이 딕셔너리에 존재하지 않으면 새롭게 추가
+            }
         }
 
-        // 기존의 timeText와 killsScoreText의 텍스트 값을 가져와서 결과 UI에 표시
-        resultPlayTimeText.text = timeText.text;
-        resultKillsText.text = killsScoreText.text;
-        resultTotalScoreText.text = totalScore.ToString(); // 최종 점수를 문자열로 변환하여 업데이트
-
-        gameResultUI.SetActive(true);
+        // 인스펙터 창에서 할당받은 총기 종류별 버튼 리스트를 변환해서 딕셔너리 타입 멤버변수 초기화
+        foreach (GunButtonUI gunButtonUI in gunButtonUIList)
+        {
+            if (!gunButtonUIDictionary.ContainsKey(gunButtonUI.gunName))
+            {
+                gunButtonUIDictionary.Add(gunButtonUI.gunName, gunButtonUI.gunButtonBox); // 해당 gunName 이 딕셔너리에 존재하지 않으면 새롭게 추가
+            }
+        }
     }
 }
