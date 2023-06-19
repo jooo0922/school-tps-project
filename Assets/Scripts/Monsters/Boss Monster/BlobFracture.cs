@@ -8,6 +8,9 @@ public class BlobFracture : MonoBehaviour
     public GameObject originBlob;
     public GameObject fracturedBlob;
 
+    [Header("Effects")]
+    public ParticleSystem energyExplosionEffect; // 폭발 효과 파티클 시스템
+
     [Header("Explosion Settings")]
     public float explosionMinForce = 5;
     public float explosionMaxForce = 100;
@@ -48,5 +51,7 @@ public class BlobFracture : MonoBehaviour
 
             rigidbody.AddExplosionForce(Random.Range(explosionMinForce, explosionMaxForce), transform.position, explosionForceRadius); // 각 리지드바디에 폭발 힘 적용
         }
+
+        energyExplosionEffect.Play(); // 폭발 이펙트 처리를 위한 파티클 시스템 재생
     }
 }
