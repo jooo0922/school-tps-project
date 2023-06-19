@@ -10,6 +10,8 @@ public class BlobFracture : MonoBehaviour
 
     [Header("Effects")]
     public ParticleSystem energyExplosionEffect; // 폭발 효과 파티클 시스템
+    public AudioClip destroySound; // 파괴 효과 오디오
+    public AudioClip blastSound; // 폭발 효과 오디오
 
     [Header("Explosion Settings")]
     public float explosionMinForce = 5;
@@ -18,6 +20,7 @@ public class BlobFracture : MonoBehaviour
 
     private Rigidbody[] fractureRigidbody; // 하위 Fracture 리지드바디 컴포넌트
     private BossMonster bossMonster; // BossMonster 컴포넌트
+    private AudioSource bossMonsterAudio; // 오디오 소스 컴포넌트
 
     // 필요한 컴포넌트 가져오기 및 초기 설정
     private void Awake()
@@ -26,13 +29,13 @@ public class BlobFracture : MonoBehaviour
         fracturedBlob.SetActive(false); // Blob Fracture 게임 오브젝트를 스크립트에서 확실하게 비활성화 처리
 
         fractureRigidbody = GetComponentsInChildren<Rigidbody>();
+        bossMonster = GetComponent<BossMonster>();
+        bossMonsterAudio = GetComponent<AudioSource>();
 
         foreach (Rigidbody rigidbody in fractureRigidbody)
         {
             rigidbody.constraints = RigidbodyConstraints.FreezeAll; // 각 리지드바디의 모든 Constraints 를 잠가버림. (인스펙터 창에서 체크해놓으면, Explode 에서 제대로 해제가 제대로 안됨. 따라서 스크립트로 제어!)
         }
-
-        bossMonster = GetComponent<BossMonster>();
 
         if (bossMonster != null)
         {
@@ -53,5 +56,9 @@ public class BlobFracture : MonoBehaviour
         }
 
         energyExplosionEffect.Play(); // 폭발 이펙트 처리를 위한 파티클 시스템 재생
+
+        // 폭발 오디오 재생
+        bossMonsterAudio.PlayOneShot(destroySound);
+        bossMonsterAudio.PlayOneShot(blastSound);
     }
 }
