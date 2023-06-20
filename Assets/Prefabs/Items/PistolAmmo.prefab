@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6431326420632668466}
   - component: {fileID: 8045200544885736218}
   - component: {fileID: 3742907928197710712}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PistolAmmo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79,7 +79,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5538470415529476921}
   - component: {fileID: 1741219937845683307}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: mag 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -164,7 +164,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8203269295999902212}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: mag
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -195,7 +195,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3990344996081545526}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -228,7 +228,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8327704545722684407}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}

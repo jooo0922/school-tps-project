@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2208094461063892113}
   - component: {fileID: 2748775447304765684}
   - component: {fileID: 2352272683650019527}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 2862914146677023706}
   - component: {fileID: 4539335210163553910}
   - component: {fileID: 2694583652973078026}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MedicalKit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
