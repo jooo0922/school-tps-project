@@ -81,6 +81,18 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         quitGameUI.SetActive(true);
     }
 
+    public void OnModalQuitBtnClick()
+    {
+        
+    }
+
+    public void OnModalCancelBtnClick()
+    {
+        HideAllPanels(); // 기존 패널 모두 닫기
+
+        quitGameUI.SetActive(false);
+    }
+
     // 기존 패널들을 모두 비활성화
     private void HideAllPanels()
     {
