@@ -83,7 +83,27 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     public void OnModalQuitBtnClick()
     {
-        
+        /*
+            #if
+            #else
+            #endif
+
+            이는 전처리기 지시문으로,
+            c# 의 일반적인 조건문이 런타임에 실행되는 것과 달리,
+            전처리기 지시문은 컴파일 타임에 실행됨.
+
+            굳이 컴파일 타임에 실행하는 이유는,
+            실행환경 차이로 인한 기능 지원여부가 다르기 때문에,
+            각 실행환경에 맞는 코드를 런타임에 실행하도록
+            컴파일 타임에 어떤 코드를 사용할 지 미리 검사한 것.
+
+            이를 통해 불필요한 코드 실행을 최소화하여 메모리 누수 등을 방지할 수 있음.
+         */
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false; // 유니티 에디터일 경우, 플레이 모드 종료
+#else
+        Application.Quit(); // 일반적인 빌드된 애플리케이션 실행 종료
+#endif
     }
 
     public void OnModalCancelBtnClick()
