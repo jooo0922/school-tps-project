@@ -5109,7 +5109,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 729283922}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1393129340}
+        m_TargetAssemblyTypeName: LobbyManager, Assembly-CSharp
+        m_MethodName: OnCharacterThumbnailBtnClick
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Joon
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &729283922
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10523,6 +10535,16 @@ MonoBehaviour:
   settingsPanel: {fileID: 170502721}
   lobbyBlur: {fileID: 405969861}
   quitGameUI: {fileID: 1066789615}
+  characterModels:
+  - {fileID: 8934409922037211911}
+  - {fileID: 1272868343}
+  characterDatas:
+  - {fileID: 11400000, guid: c01d470fd76f7461a9953613decf1499, type: 2}
+  - {fileID: 11400000, guid: 2a83ab9f4b2dd4e339841bc10e384a02, type: 2}
+  characterHealthText: {fileID: 1108980542}
+  characterSpeedText: {fileID: 1717068871}
+  characterJumpForceText: {fileID: 1177372977}
+  gameData: {fileID: 11400000, guid: d60ba9c01d828408db0a8a35433076f5, type: 2}
 --- !u!1 &1399079790
 GameObject:
   m_ObjectHideFlags: 0
@@ -15251,7 +15273,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1933152297}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1393129340}
+        m_TargetAssemblyTypeName: LobbyManager, Assembly-CSharp
+        m_MethodName: OnCharacterThumbnailBtnClick
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Hanna
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1933152297
 MonoBehaviour:
   m_ObjectHideFlags: 0
