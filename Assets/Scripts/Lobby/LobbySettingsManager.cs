@@ -22,4 +22,9 @@ public class LobbySettingsManager : MonoBehaviour
     }
 
     // TODO: 그래픽 설정 제어 (해상도, 퀄리티)
+    public void SetGraphicsQuality(int qualityIndex)
+    {
+        QualitySettings.SetQualityLevel(qualityIndex); // 그래픽 퀄리티 설정
+    }
 }
+
