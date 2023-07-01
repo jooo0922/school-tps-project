@@ -197,6 +197,7 @@ GameObject:
   - component: {fileID: 19879837}
   - component: {fileID: 19879839}
   - component: {fileID: 19879838}
+  - component: {fileID: 19879840}
   m_Layer: 5
   m_Name: Select Character Panel
   m_TagString: Untagged
@@ -272,6 +273,26 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &19879840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 19879836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37057a444129a46488e5267e055ca3c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterModels:
+  - {fileID: 8934409922037211911}
+  - {fileID: 1272868343}
+  characterDatas: []
+  characterHealthText: {fileID: 1108980542}
+  characterSpeedText: {fileID: 1717068871}
+  characterJumpForceText: {fileID: 1177372977}
+  gameData: {fileID: 11400000, guid: d60ba9c01d828408db0a8a35433076f5, type: 2}
 --- !u!1 &25445683
 GameObject:
   m_ObjectHideFlags: 0
@@ -1112,6 +1133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 170502722}
   - component: {fileID: 170502723}
+  - component: {fileID: 170502724}
   m_Layer: 5
   m_Name: Settings Panel
   m_TagString: Untagged
@@ -1167,6 +1189,20 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &170502724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 170502721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d1af69ee1caf4209bb5160ecdea69cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundEffectVolume: {fileID: 24100000, guid: c428f77aac3344fda9bc1ac0ec52bff0, type: 2}
+  backgroundVolume: {fileID: 24100000, guid: eb62c32471a744207b23e1e4772d971e, type: 2}
 --- !u!1 &213699772
 GameObject:
   m_ObjectHideFlags: 0
@@ -1288,8 +1324,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1393129340}
-        m_TargetAssemblyTypeName: LobbyManager, Assembly-CSharp
+      - m_Target: {fileID: 1473500304}
+        m_TargetAssemblyTypeName: LobbyMenuManager, Assembly-CSharp
         m_MethodName: OnSelectCharacterBtnClick
         m_Mode: 1
         m_Arguments:
@@ -3396,8 +3432,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1393129340}
-        m_TargetAssemblyTypeName: LobbyManager, Assembly-CSharp
+      - m_Target: {fileID: 1473500304}
+        m_TargetAssemblyTypeName: LobbyMenuManager, Assembly-CSharp
         m_MethodName: OnModalQuitBtnClick
         m_Mode: 1
         m_Arguments:
@@ -4494,8 +4530,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1393129340}
-        m_TargetAssemblyTypeName: LobbyManager, Assembly-CSharp
+      - m_Target: {fileID: 1473500304}
+        m_TargetAssemblyTypeName: LobbyMenuManager, Assembly-CSharp
         m_MethodName: OnSettingsBtnClick
         m_Mode: 1
         m_Arguments:
@@ -5110,8 +5146,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1393129340}
-        m_TargetAssemblyTypeName: LobbyManager, Assembly-CSharp
+      - m_Target: {fileID: 19879840}
+        m_TargetAssemblyTypeName: LobbySelectCharacterManager, Assembly-CSharp
         m_MethodName: OnCharacterThumbnailBtnClick
         m_Mode: 5
         m_Arguments:
@@ -6843,8 +6879,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1393129340}
-        m_TargetAssemblyTypeName: LobbyManager, Assembly-CSharp
+      - m_Target: {fileID: 1473500304}
+        m_TargetAssemblyTypeName: LobbyMenuManager, Assembly-CSharp
         m_MethodName: OnPlayGameBtnClick
         m_Mode: 1
         m_Arguments:
@@ -10082,8 +10118,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1393129340}
-        m_TargetAssemblyTypeName: LobbyManager, Assembly-CSharp
+      - m_Target: {fileID: 1473500304}
+        m_TargetAssemblyTypeName: LobbyMenuManager, Assembly-CSharp
         m_MethodName: OnModalCancelBtnClick
         m_Mode: 1
         m_Arguments:
@@ -10530,21 +10566,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58c12a2d4d12c4d97af06380b5de1f90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterPreview: {fileID: 1171959193}
-  selectCharacterPanel: {fileID: 19879836}
-  settingsPanel: {fileID: 170502721}
-  lobbyBlur: {fileID: 405969861}
-  quitGameUI: {fileID: 1066789615}
-  characterModels:
-  - {fileID: 8934409922037211911}
-  - {fileID: 1272868343}
-  characterDatas:
-  - {fileID: 11400000, guid: c01d470fd76f7461a9953613decf1499, type: 2}
-  - {fileID: 11400000, guid: 2a83ab9f4b2dd4e339841bc10e384a02, type: 2}
-  characterHealthText: {fileID: 1108980542}
-  characterSpeedText: {fileID: 1717068871}
-  characterJumpForceText: {fileID: 1177372977}
-  gameData: {fileID: 11400000, guid: d60ba9c01d828408db0a8a35433076f5, type: 2}
+  soundEffectVolume: {fileID: 24100000, guid: c428f77aac3344fda9bc1ac0ec52bff0, type: 2}
+  backgroundVolume: {fileID: 24100000, guid: eb62c32471a744207b23e1e4772d971e, type: 2}
 --- !u!1 &1399079790
 GameObject:
   m_ObjectHideFlags: 0
@@ -10857,8 +10880,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1393129340}
-        m_TargetAssemblyTypeName: LobbyManager, Assembly-CSharp
+      - m_Target: {fileID: 1473500304}
+        m_TargetAssemblyTypeName: LobbyMenuManager, Assembly-CSharp
         m_MethodName: OnQuitGameBtnClick
         m_Mode: 1
         m_Arguments:
@@ -11224,6 +11247,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1473500303}
+  - component: {fileID: 1473500304}
   m_Layer: 5
   m_Name: Menu
   m_TagString: Untagged
@@ -11252,6 +11276,23 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1473500304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1473500302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1da45b6f00c8849d291ffc29ba80e531, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterPreview: {fileID: 1171959193}
+  selectCharacterPanel: {fileID: 19879836}
+  settingsPanel: {fileID: 170502721}
+  lobbyBlur: {fileID: 405969861}
+  quitGameUI: {fileID: 1066789615}
 --- !u!1 &1474839636
 GameObject:
   m_ObjectHideFlags: 0
@@ -12337,10 +12378,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 1980166866}
   m_HandleRect: {fileID: 690564496}
   m_Direction: 0
-  m_MinValue: 0
-  m_MaxValue: 1
+  m_MinValue: -80
+  m_MaxValue: 0
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -15274,8 +15315,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1393129340}
-        m_TargetAssemblyTypeName: LobbyManager, Assembly-CSharp
+      - m_Target: {fileID: 19879840}
+        m_TargetAssemblyTypeName: LobbySelectCharacterManager, Assembly-CSharp
         m_MethodName: OnCharacterThumbnailBtnClick
         m_Mode: 5
         m_Arguments:
