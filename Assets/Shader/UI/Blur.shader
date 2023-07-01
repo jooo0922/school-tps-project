@@ -4,6 +4,7 @@ Shader "Hidden/Blur"
     {
         _Radius("Radius", Range(0, 255)) = 0
         _Color("Color", Color) = (1,1,1,1)
+        _MainTex ("Albedo (RGB)", 2D) = "white" {}
     }
  
     Category
@@ -52,7 +53,8 @@ Shader "Hidden/Blur"
                     o.uvgrab.zw = o.vertex.zw;
                     return o;
                 }
- 
+
+                sampler2D _MainTex;
                 sampler2D _GrabTexture;
                 float4 _GrabTexture_TexelSize;
                 float _Radius;
@@ -120,7 +122,8 @@ Shader "Hidden/Blur"
                     o.uvgrab.zw = o.vertex.zw;
                     return o;
                 }
- 
+
+                sampler2D _MainTex;
                 sampler2D _GrabTexture;
                 float4 _GrabTexture_TexelSize;
                 float _Radius;
