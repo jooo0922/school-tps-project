@@ -288,7 +288,9 @@ MonoBehaviour:
   characterModels:
   - {fileID: 8934409922037211911}
   - {fileID: 1272868343}
-  characterDatas: []
+  characterDatas:
+  - {fileID: 11400000, guid: c01d470fd76f7461a9953613decf1499, type: 2}
+  - {fileID: 11400000, guid: 2a83ab9f4b2dd4e339841bc10e384a02, type: 2}
   characterHealthText: {fileID: 1108980542}
   characterSpeedText: {fileID: 1717068871}
   characterJumpForceText: {fileID: 1177372977}
@@ -1203,6 +1205,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soundEffectVolume: {fileID: 24100000, guid: c428f77aac3344fda9bc1ac0ec52bff0, type: 2}
   backgroundVolume: {fileID: 24100000, guid: eb62c32471a744207b23e1e4772d971e, type: 2}
+  resolutionOptionDropdown: {fileID: 506356319}
 --- !u!1 &213699772
 GameObject:
   m_ObjectHideFlags: 0
@@ -3320,7 +3323,19 @@ MonoBehaviour:
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 170502724}
+        m_TargetAssemblyTypeName: LobbySettingsManager, Assembly-CSharp
+        m_MethodName: SetResolution
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_AlphaFadeSpeed: 0.15
 --- !u!114 &506356320
 MonoBehaviour:
